@@ -22,5 +22,11 @@ public partial class HotBarSlot : Button
          Background.Frame = 0;
          return;
       }
+
+      ItemStack.inventorySlot = slot;
+      ItemStack.Update();
+      ItemStack.Visible = true;
+
+      Background.Frame = 1;
    }
 }

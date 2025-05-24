@@ -42,18 +42,12 @@ public partial class Inventory : Resource
       if (index < 0) { return; }
 
       Slots[index] = new InventorySlot();
+      EmitSignal(SignalName.InventoryUpdated);
    }
 
    public void InsertSlot(int index, InventorySlot inventorySlot)
    {
-      /*
-      var oldIndex = Slots.IndexOf(inventorySlot);
-      if (oldIndex != -1) {
-         RemoveItemAtIndex(oldIndex);
-      }
-      */
-
-
       Slots[index] = inventorySlot;
+      EmitSignal(SignalName.InventoryUpdated);
    }
 }

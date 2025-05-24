@@ -16,6 +16,9 @@ public partial class HotBar : HBoxContainer
 
       var slots = GetChildren().Cast<HotBarSlot>();
       HotBarSlots = [.. slots];
+
+      Update();
+      PlayerInventory.InventoryUpdated += Update;
    }
 
    public void Update()

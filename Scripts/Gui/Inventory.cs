@@ -27,8 +27,12 @@ public partial class Inventory : Control
       PlayerInventory = GD.Load<Resources.Inventory>("res://Scenes/Inventory/PlayerInventory.tres");
       ItemStack = GD.Load<PackedScene>("res://Scenes/Gui/ItemStack.tscn");
 
-      var slots = GetNode<GridContainer>("Background/Grid").GetChildren().Cast<Slot>();
-      Slots = [.. slots];
+      var hotBarSlots = GetNode<BoxContainer>("Background/HotBarSlots").GetChildren().Cast<Slot>();
+      var slots = GetNode<GridContainer>("Background/NormalSlots").GetChildren().Cast<Slot>();
+
+      Slots = [];
+      Slots.AddRange([.. hotBarSlots]);
+      Slots.AddRange([.. slots]);
 
       PlayerInventory.InventoryUpdated += Update;
 

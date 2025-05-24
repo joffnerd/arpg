@@ -15,14 +15,40 @@ script = ExtResource("1_vy4n2")
 [node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_right = 134.0
-offset_bottom = 84.0
+offset_bottom = 96.0
 texture = ExtResource("1_112l1")
 patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="Grid" type="GridContainer" parent="Background"]
+[node name="HotBarSlots" type="HBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 10.0
+offset_right = 58.0
+offset_bottom = 30.0
+grow_horizontal = 2
+
+[node name="Slot1" parent="Background/HotBarSlots" instance=ExtResource("2_bo6ly")]
+layout_mode = 2
+
+[node name="Slot2" parent="Background/HotBarSlots" instance=ExtResource("2_bo6ly")]
+layout_mode = 2
+
+[node name="Slot3" parent="Background/HotBarSlots" instance=ExtResource("2_bo6ly")]
+layout_mode = 2
+
+[node name="Slot4" parent="Background/HotBarSlots" instance=ExtResource("2_bo6ly")]
+layout_mode = 2
+
+[node name="Slot5" parent="Background/HotBarSlots" instance=ExtResource("2_bo6ly")]
+layout_mode = 2
+
+[node name="NormalSlots" type="GridContainer" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,54 +56,39 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -58.0
-offset_top = -34.0
+offset_top = -8.0
 offset_right = 58.0
-offset_bottom = 34.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 5
 
-[node name="Slot1" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot6" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot2" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot7" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot3" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot8" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot4" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot9" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot5" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot10" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot6" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot11" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot7" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot12" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot8" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot13" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot9" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot14" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
 
-[node name="Slot10" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
-layout_mode = 2
-
-[node name="Slot11" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
-layout_mode = 2
-
-[node name="Slot12" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
-layout_mode = 2
-
-[node name="Slot13" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
-layout_mode = 2
-
-[node name="Slot14" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
-layout_mode = 2
-
-[node name="Slot15" parent="Background/Grid" instance=ExtResource("2_bo6ly")]
+[node name="Slot15" parent="Background/NormalSlots" instance=ExtResource("2_bo6ly")]
 layout_mode = 2
