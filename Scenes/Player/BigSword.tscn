@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfgihrts8a7qo"]
+
+[ext_resource type="Texture2D" uid="uid://frbm0yoa5ywl" path="res://Art/Objects/BigSword/SpriteInHand.png" id="1_tjsai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjsai"]
+size = Vector2(4, 11)
+
+[node name="BigSword" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 6)
+texture = ExtResource("1_tjsai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_tjsai")

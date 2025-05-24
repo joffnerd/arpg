@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cdv60ygquo3ia"]
+
+[ext_resource type="Texture2D" uid="uid://cj7hufk73adx2" path="res://Art/Objects/Pot/LifePot.png" id="1_7gftn"]
+[ext_resource type="Script" uid="uid://c8lirmkf5x2e3" path="res://Scripts/Resources/InventoryHealth.cs" id="1_ocb3k"]
+
+[resource]
+script = ExtResource("1_ocb3k")
+HealthAmount = 2
+Name = "LifePot"
+Texture = ExtResource("1_7gftn")
+MaxStackAmount = 5
+metadata/_custom_type_script = "uid://cm6672mi4e08m"

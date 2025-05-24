@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckkw4tsiipg7x"]
+
+[ext_resource type="PackedScene" uid="uid://dwgfu5wjhxbaw" path="res://Scenes/Objects/Collectable.tscn" id="1_845mx"]
+[ext_resource type="Texture2D" uid="uid://c1yko4vy8g3mp" path="res://Art/Objects/BigSword/Sprite.png" id="2_7atga"]
+[ext_resource type="Script" uid="uid://ch41t6rf6na7x" path="res://Scripts/Objects/BigSword.cs" id="2_43m8b"]
+[ext_resource type="Resource" uid="uid://dafenariflvlj" path="res://Scenes/Inventory/Items/BigSword.tres" id="3_5kel3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43m8b"]
+resource_local_to_scene = true
+size = Vector2(4, 12)
+
+[sub_resource type="Animation" id="Animation_7atga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_845mx"]
+resource_name = "Spin"
+length = 0.4
+step = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43m8b"]
+_data = {
+&"RESET": SubResource("Animation_7atga"),
+&"Spin": SubResource("Animation_845mx")
+}
+
+[node name="BigSword" instance=ExtResource("1_845mx")]
+script = ExtResource("2_43m8b")
+ItemResource = ExtResource("3_5kel3")
+metadata/isWeapon = true
+metadata/isInvItem = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_43m8b")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_7atga")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_43m8b")
+}

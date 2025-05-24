@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://3trt5p6j1dg1"]
+
+[ext_resource type="FontFile" uid="uid://vbdy2ullcu7y" path="res://Art/Font/NormalFont.ttf" id="1_0sjpo"]
+[ext_resource type="Script" uid="uid://bh5p8vxinm71d" path="res://Scripts/Gui/ItemStack.cs" id="1_oehv3"]
+
+[node name="ItemStack" type="Panel"]
+script = ExtResource("1_oehv3")
+
+[node name="Item" type="Sprite2D" parent="."]
+
+[node name="Amount" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(11, 13)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 9.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_0sjpo")
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 2

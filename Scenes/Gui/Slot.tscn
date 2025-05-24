@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddbpbskg5gmgk"]
+
+[ext_resource type="Script" uid="uid://b7yd53v7161as" path="res://Scripts/Gui/Slot.cs" id="1_ku5ak"]
+[ext_resource type="Texture2D" uid="uid://de17sp3jd4ox3" path="res://Art/GUI/InventorySlot.png" id="1_r2e6n"]
+
+[node name="Slot" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+script = ExtResource("1_ku5ak")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_r2e6n")
+centered = false
+vframes = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 7.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 10
+text = "a"

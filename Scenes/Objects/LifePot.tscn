@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4vd50s0b63ew"]
+
+[ext_resource type="PackedScene" uid="uid://dwgfu5wjhxbaw" path="res://Scenes/Objects/Collectable.tscn" id="1_0we3d"]
+[ext_resource type="Resource" uid="uid://cdv60ygquo3ia" path="res://Scenes/Inventory/Items/LifePot.tres" id="2_7nug1"]
+[ext_resource type="Texture2D" uid="uid://cj7hufk73adx2" path="res://Art/Objects/Pot/LifePot.png" id="2_sktvs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7nug1"]
+resource_local_to_scene = true
+size = Vector2(8, 10)
+
+[node name="LifePot" instance=ExtResource("1_0we3d")]
+ItemResource = ExtResource("2_7nug1")
+metadata/isInvItem = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_7nug1")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_sktvs")

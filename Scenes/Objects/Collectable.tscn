@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwgfu5wjhxbaw"]
+
+[ext_resource type="Script" uid="uid://dakwgid0d0q6i" path="res://Scripts/Objects/Collectable.cs" id="1_lnc7x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pqv7"]
+resource_local_to_scene = true
+
+[node name="Collectable" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_lnc7x")
+metadata/isWeapon = false
+metadata/isHealth = false
+metadata/isCollectable = true
+metadata/isInvItem = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5pqv7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
