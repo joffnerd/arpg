@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://rkliopq3o2yy"]
+[gd_scene load_steps=24 format=4 uid="uid://rkliopq3o2yy"]
 
 [ext_resource type="Script" uid="uid://bgp54ie80tu5k" path="res://Scripts/Levels/World.cs" id="1_fb73i"]
 [ext_resource type="Texture2D" uid="uid://vqdyqpbfr08e" path="res://Art/World/TilesetFloor.png" id="2_fxmlw"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="5_k4ffd"]
 [ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="6_k8kl7"]
 [ext_resource type="PackedScene" uid="uid://drk7qc20hbjhq" path="res://Scenes/Objects/LifeHeart.tscn" id="7_p3de1"]
+[ext_resource type="Texture2D" uid="uid://cp0cpk4582kxx" path="res://Art/World/TilesetHouse.png" id="8_0v0gn"]
 [ext_resource type="PackedScene" uid="uid://b7idxkbyy4p0v" path="res://Scenes/Enemies/Slime.tscn" id="8_6y2th"]
+[ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="10_73dir"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nsto"]
 texture = ExtResource("2_fxmlw")
@@ -1570,6 +1572,20 @@ scenes/4/scene = ExtResource("7_p3de1")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetScenesCollectionSource_kn06e")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0v0gn"]
+texture = ExtResource("8_0v0gn")
+0:0/size_in_atlas = Vector2i(4, 3)
+0:0/0 = 0
+0:0/0/y_sort_origin = 24
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.0182, 22.932, -14.5686, 11.6009, -12.9498, 10.3419, -3.59717, 10.162, -1.97844, 12.1405, -1.61873, 22.5723, 26.6191, 22.7521, 30.0364, 18.0758, 30.2163, 4.94612, 31.2954, 2.4281, 31.9249, -2.24823, -31.7451, -2.42809, -31.6551, 2.24823, -30.3961, 6.02527, -30.576, 18.0758, -27.6982, 22.3924)
+
+[sub_resource type="TileSet" id="TileSet_n8hij"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_0v0gn")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73dir"]
+size = Vector2(14, 11)
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_fb73i")
@@ -1597,6 +1613,12 @@ tile_set = SubResource("TileSet_45d1s")
 [node name="Items" type="TileMapLayer" parent="Layers"]
 tile_map_data = PackedByteArray("AAAFABQAAAAAAAAAAQAYAAQAAAAAAAAAAQADAAgAAAAAAAAAAgAVABMAAAAAAAAAAQARAAsAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_q2d71")
+
+[node name="Buildings" type="TileMapLayer" parent="Layers"]
+z_index = 1
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAhAAMAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_n8hij")
 
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -1635,3 +1657,12 @@ EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime5"]
 position = Vector2(13, -39)
+
+[node name="SceneTrigger" parent="." instance=ExtResource("10_73dir")]
+position = Vector2(526, 71)
+ConnectedScene = "World/House1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
+z_index = 2
+position = Vector2(2, 0.5)
+shape = SubResource("RectangleShape2D_73dir")

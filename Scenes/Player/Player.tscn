@@ -341,6 +341,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
+collision_layer = 17
 collision_mask = 3
 script = ExtResource("1_q3lat")
 
