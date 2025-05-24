@@ -29,8 +29,8 @@ public partial class Enemy : CharacterBody2D
 
       HitBox = GetNode<Area2D>("HitBox");
 
-      DeathPosition = Position;
-      StartPosition = Position;
+      DeathPosition = GlobalPosition;
+      StartPosition = GlobalPosition;
       EndPosition = EndPoint.GlobalPosition;
    }
 
@@ -57,7 +57,7 @@ public partial class Enemy : CharacterBody2D
 
       if (area.GetParent().Name == "Weapon")
       {
-         DeathPosition = Position;
+         DeathPosition = GlobalPosition;
          isDead = true;
          HitBox.SetDeferred("Monitorable", false);
          Animations.Play("Death");
@@ -66,7 +66,7 @@ public partial class Enemy : CharacterBody2D
 
    public void UpdateVelocity()
    {
-      var moveDirection = EndPosition - Position;
+      var moveDirection = EndPosition - GlobalPosition;
       if (moveDirection.Length() < moveLimit)
       {
          ChangeDirection();

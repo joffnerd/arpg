@@ -13,7 +13,7 @@ public partial class World : Node2D
 
    public override void _Ready()
    {
-      Player = GetParent().GetNode<Player.Player>("Player");
+      Player = GetTree().Root.GetNode<Player.Player>("Main/Player");
       Layers = GetNode<Node2D>("Layers");
 
       var enemies = GetNode<Node2D>("Enemies").GetChildren().Cast<Enemy>();

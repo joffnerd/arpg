@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2a1lfyn4va0o"]
+[gd_scene load_steps=9 format=3 uid="uid://d2a1lfyn4va0o"]
 
-[ext_resource type="PackedScene" uid="uid://rkliopq3o2yy" path="res://Scenes/Levels/World.tscn" id="1_50glp"]
 [ext_resource type="PackedScene" uid="uid://tk8rd63h4ioi" path="res://Scenes/Player/Player.tscn" id="1_jw32o"]
 [ext_resource type="Script" uid="uid://dbid64r1pc3ne" path="res://Scripts/Gui/GuiRoot.cs" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://bo4usxy5lpa8h" path="res://Scripts/Main.cs" id="1_vy5pj"]
@@ -10,13 +9,15 @@
 [ext_resource type="Script" uid="uid://c3acwqjqgskcl" path="res://Scripts/Player/FollowCam.cs" id="3_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://kv7k08g3l12w" path="res://Scenes/Gui/HotBar.tscn" id="4_jw32o"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_vy5pj")
 
-[node name="World" parent="." instance=ExtResource("1_50glp")]
+[node name="CurrentMap" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_jw32o")]
-position = Vector2(95, 51)
+position = Vector2(31, 38)
 Inventory = ExtResource("2_50glp")
 
 [node name="FollowCam" type="Camera2D" parent="Player"]

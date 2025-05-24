@@ -1595,18 +1595,18 @@ tile_map_data = PackedByteArray("AAADAAQAAAAAAAAAAAAKAAEAAAAAAAAAAAANAAQAAAAAAAA
 tile_set = SubResource("TileSet_45d1s")
 
 [node name="Items" type="TileMapLayer" parent="Layers"]
-tile_map_data = PackedByteArray("AAAFAAsAAAAAAAAAAQAFABQAAAAAAAAAAQAYAAQAAAAAAAAAAQAHAAIAAAAAAAAAAQAHAAMAAAAAAAAAAQAHAAQAAAAAAAAAAQADAAgAAAAAAAAAAgACAAkAAAAAAAAABAADAAoAAAAAAAAABAAEAAkAAAAAAAAABAA=")
+tile_map_data = PackedByteArray("AAAFABQAAAAAAAAAAQAYAAQAAAAAAAAAAQADAAgAAAAAAAAAAgAVABMAAAAAAAAAAQARAAsAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_q2d71")
 
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Slime1" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("8_6y2th")]
-position = Vector2(173, 81)
+position = Vector2(174, 77)
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime1"]
-position = Vector2(-23, 34)
+position = Vector2(-19, 27)
 
 [node name="Slime2" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("8_6y2th")]
 position = Vector2(328, 88)
