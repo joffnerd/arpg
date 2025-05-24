@@ -11,6 +11,7 @@ public partial class SceneTrigger : Area2D
    {
       var sceneFolder = "res://Scenes/Levels/";
       var path = sceneFolder + ConnectedScene + ".tscn";
-      GetTree().ChangeSceneToFile(path);
+      var sceneTree = GetTree();
+      sceneTree.CallDeferred("ChangeSceneToFile", path);
    }
 }

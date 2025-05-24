@@ -29,8 +29,8 @@ public partial class Main : Node
 
    public void LoadMap()
    {
-      var world = ResourceLoader.Load<PackedScene>("res://Scenes/Levels/World.tscn");
-      var currentMap = world.Instantiate() as World;
+      var scene = ResourceLoader.Load<PackedScene>("res://Scenes/Levels/World.tscn");
+      var currentMap = scene.Instantiate() as World;
       currentMap.GlobalPosition = new Vector2(0,0);
       CurrentMap.AddChild(currentMap);
 
