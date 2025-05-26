@@ -18,10 +18,12 @@ public partial class BigSword : Collectable
 
    private void AnimationFinished(StringName animName)
    {
-      base.Collect(Inventory, true);
+      GD.Print("AnimationFinished");
+
+      base.Collect(Inventory);
    }
 
-   public override void Collect(Inventory inventory, bool addToInv)
+   public override void Collect(Inventory inventory)
    {
       Inventory = inventory;
       Animations.Play("Spin");

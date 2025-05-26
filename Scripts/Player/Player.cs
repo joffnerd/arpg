@@ -13,19 +13,23 @@ public partial class Player : CharacterBody2D
    public delegate void HealthChangedEventHandler(int health);
 
    public AnimationPlayer Animations;
-   public AnimationPlayer Effects;
+   public AnimationPlayer VisualEffects;
+   public AudioStreamPlayer AudioEffects;
+   public AudioStream AudioAttack;
+   public AudioStream AudioHurt;
+   public AudioStream AudioCollect;
    public Timer HitTimer;
    public Area2D HurtBox;
    public Weapon Weapon;
 
-   public int maxHealth = 9;
+   public int maxHealth = 12;
    public int currentHealth;
+   public bool haveWeapon = false;
 
    private int speed = 50;
    private int knockbackAmount = 600;
    private bool isHit = false;
-   private bool isAttacking = false;
-   private bool haveWeapon = false;
+   private bool isAttacking = false;   
    private string lastAnimDirection = "Down";
 
    public override void _Ready()
@@ -35,13 +39,18 @@ public partial class Player : CharacterBody2D
       Animations = GetNode<AnimationPlayer>("AnimationPlayer");
       Animations.AnimationFinished += AnimationFinished;
 
+      AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
+      AudioAttack = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Slash.wav");
+      AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");
+      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");
+
       HitTimer = GetNode<Timer>("HitTimer");
       HitTimer.Timeout += HitTimerTimeout;
 
       HurtBox = GetNode<Area2D>("HurtBox");
 
-      Effects = GetNode<AnimationPlayer>("Effects");
-      Effects.Play("RESET");
+      VisualEffects = GetNode<AnimationPlayer>("VisualEffects");
+      VisualEffects.Play("RESET");
 
       Weapon = GetNode<Weapon>("Weapon");
       Weapon.Disable();
@@ -52,23 +61,12 @@ public partial class Player : CharacterBody2D
       HandleInput();
       MoveAndSlide();
       UpdateAnimation();
-
-      if (!isHit)
-      {
-         foreach (Area2D area in HurtBox.GetOverlappingAreas())
-         {
-            if (area.Name == "HitBox")
-            {
-               GD.Print("Player Hurt: " + area.GetParent().Name + " -> " + area.Name);
-               TakeDamage(area);
-            }
-         }
-      }
+      CheckTakeDamage();      
    }
 
    private void HitTimerTimeout()
    {
-      Effects.Play("RESET");
+      VisualEffects.Play("RESET");
       isHit = false;
    }
 
@@ -84,44 +82,30 @@ public partial class Player : CharacterBody2D
 
    public void OnHurtBoxAreaEntered(Area2D area)
    {
-      if(!area.HasMeta("isCollectable"))
+      if (!area.HasMeta("isCollectable"))
       {
          return;
       }
 
+
+      var item = area as Collectable;
+      item.BuildMeta(area);
+
       var isCollectable = (bool)area.GetMeta("isCollectable");
       if (isCollectable)
       {
-         var item = area as Collectable;
-
-         var isHealth = (bool)area.GetMeta("isHealth");
-         if (isHealth)
-         {
-            UpdateHealth(item);
-         }
-
-         var isWeapon = (bool)area.GetMeta("isWeapon");
-         if (isWeapon && !haveWeapon)
-         {
-            UpdateWeapon(item);
-         }
-
-         var isInvItem = (bool)area.GetMeta("isInvItem");
-         item.Collect(Inventory, isInvItem);
+         AudioEffects.Stream = AudioCollect;
+         AudioEffects.Play();
+         
+         item.Collect(Inventory);
       }
    }
 
-   public void OnHurtBoxAreaExited(Area2D area)
-   {
-      //
-   }
-
-   public void UpdateHealth(Collectable item)
+   public void UpdateHealth(int amount)
    {
       if (currentHealth < maxHealth)
       {
-         var health = (InventoryHealth)item.ItemResource;
-         currentHealth += health.HealthAmount;
+         currentHealth += amount;
 
          if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
@@ -131,18 +115,30 @@ public partial class Player : CharacterBody2D
       }
    }
 
-   public void UpdateWeapon(Collectable item)
+   public void CheckTakeDamage()
    {
-      haveWeapon = true;      
+      if (!isHit)
+      {
+         foreach (Area2D area in HurtBox.GetOverlappingAreas())
+         {
+            if (area.Name == "HitBox")
+            {               
+               TakeDamage(area);
+            }
+         }
+      }
    }
 
    public void TakeDamage(Area2D area)
    {
+      GD.Print("Player Hurt: " + area.GetParent().Name + " -> " + area.Name);
+
       currentHealth -= 1;
-      if (currentHealth < 0)
+      if (currentHealth < 1)
       {
          GD.Print("GAME OVER");
          QueueFree();
+         return;
       }
 
       EmitSignal(SignalName.HealthChanged, currentHealth);
@@ -150,14 +146,28 @@ public partial class Player : CharacterBody2D
 
       var enemy = area.GetParent() as CharacterBody2D;
       KnockBack(enemy.Velocity);
-      Effects.Play("HurtBlink");
+      VisualEffects.Play("HurtBlink");
       HitTimer.Start();
+
+      AudioEffects.Stream = AudioHurt;
+      AudioEffects.Play();
+   }
+
+   public void ToggleWeapon()
+   {
+      haveWeapon = !haveWeapon;
    }
 
    public void HandleInput()
    {
+      var currentSpeed = speed;
+      if (Input.IsActionPressed("ui_run"))
+      {
+         currentSpeed = 100;
+      }
+
       var moveDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-      Velocity = moveDirection * speed;
+      Velocity = moveDirection * currentSpeed;
 
       if (Input.IsActionJustPressed("ui_attack"))
       {
@@ -167,13 +177,18 @@ public partial class Player : CharacterBody2D
 
    public void Attack()
    {
+      
       if (!haveWeapon)
       {
          return;
       }
+      
 
       Animations.Play("attack" + lastAnimDirection);
       isAttacking = true;
+
+      AudioEffects.Stream = AudioAttack;
+      AudioEffects.Play();
 
       Weapon.Enable();
    }

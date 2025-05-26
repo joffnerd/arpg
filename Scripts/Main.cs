@@ -1,6 +1,4 @@
 using ARPG.Scripts.Gui;
-using ARPG.Scripts.Levels;
-using ARPG.Scripts.Player;
 using Godot;
 
 namespace ARPG.Scripts;
@@ -16,27 +14,34 @@ public partial class Main : Node
    {
       CurrentMap = GetNode<Node2D>("CurrentMap");
       Player = GetNode<Player.Player>("Player");
+      SceneManager.Instance.Player = Player;
 
       GUI = GetNode<CanvasLayer>("GUI");
       HeartsContainer = GetNode<HeartsContainer>("GUI/HeartsContainer");
 
       HeartsContainer.SetMaxHearts(Player.maxHealth);
       HeartsContainer.UpdateHearts(Player.currentHealth);      
-      Player.HealthChanged += HeartsContainer.UpdateHearts;
+      Player.HealthChanged += HeartsContainer.UpdateHearts;      
 
-      LoadMap();
+      Init();
    }
 
-   public void LoadMap()
+   public override void _Input(InputEvent @event)
    {
-      var scene = ResourceLoader.Load<PackedScene>("res://Scenes/Levels/World.tscn");
-      var currentMap = scene.Instantiate() as World;
-      currentMap.GlobalPosition = new Vector2(0,0);
-      CurrentMap.AddChild(currentMap);
+      base._Input(@event);
 
-      var camera = Player.GetNode("FollowCam") as FollowCam;
-      camera.SetLimits();
-      //MoveChild(currentMap, 0);
+      if (Input.IsActionJustPressed("ui_rclick"))
+      {
+         var temp = CurrentMap.GetGlobalMousePosition();
+
+         GD.Print("X: " + temp.X);
+         GD.Print("Y: " + temp.Y);
+      }
+   }
+
+   public void Init()
+   {
+      SceneManager.Instance.ChangeScene(null, "Level1");      
    }
 
    public void OnInventoryClosed()

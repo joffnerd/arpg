@@ -9,7 +9,6 @@ script = ExtResource("1_oehv3")
 [node name="Item" type="Sprite2D" parent="."]
 
 [node name="Amount" type="Label" parent="."]
-visible = false
 custom_minimum_size = Vector2(11, 13)
 layout_mode = 0
 offset_left = -2.0

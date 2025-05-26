@@ -7,11 +7,12 @@ public partial class SceneTrigger : Area2D
    [Export]
    public string ConnectedScene;
 
-   public void OnBodyEntered(Node2D area)
+   public void OnBodyEntered(Node2D body)
    {
-      var sceneFolder = "res://Scenes/Levels/";
-      var path = sceneFolder + ConnectedScene + ".tscn";
-      var sceneTree = GetTree();
-      sceneTree.CallDeferred("ChangeSceneToFile", path);
+      if(body is Player.Player)
+      {
+         Node2D owner = GetOwner() as Node2D; // Level
+         SceneManager.Instance.ChangeScene(owner, ConnectedScene);
+      }
    }
 }

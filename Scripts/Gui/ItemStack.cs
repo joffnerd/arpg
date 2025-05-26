@@ -4,7 +4,7 @@ using Godot;
 namespace ARPG.Scripts.Gui;
 
 public partial class ItemStack : Panel
-{   
+{
    public Sprite2D Item;
    public Label Amount;
 
@@ -20,18 +20,23 @@ public partial class ItemStack : Panel
 
    public void Update()
    {
-      if(inventorySlot == null || inventorySlot.Item == null)
+      if (inventorySlot == null || inventorySlot.Item == null)
       {
          return;
       }
 
       Item.Visible = true;
-      Item.Texture = inventorySlot.Item.Texture;      
+      Item.Texture = inventorySlot.Item.Texture;
 
       if (inventorySlot.Amount > 1)
       {
          Amount.Visible = true;
          Amount.Text = inventorySlot.Amount.ToString();
+      }
+      else
+      {
+         Amount.Visible = false;
+         Amount.Text = string.Empty;
       }
    }
 }

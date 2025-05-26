@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_tnlpp")
-HealthAmount = 1
+HealthAmount = 2
 Name = "LifeHeart"
 Texture = ExtResource("1_1f65c")
 MaxStackAmount = 0

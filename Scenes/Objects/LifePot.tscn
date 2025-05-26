@@ -10,7 +10,9 @@ size = Vector2(8, 10)
 
 [node name="LifePot" instance=ExtResource("1_0we3d")]
 ItemResource = ExtResource("2_7nug1")
+metadata/isHealth = true
 metadata/isInvItem = true
+metadata/isConsumable = true
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_7nug1")

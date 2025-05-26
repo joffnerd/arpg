@@ -13,6 +13,7 @@ public partial class HeartsContainer : HBoxContainer
 
    public void SetMaxHearts(int hearts)
    {
+      hearts = hearts / 4;
       for (int i = 0; i < hearts; i++)
       {
          var heart = HeartScene.Instantiate();
@@ -20,23 +21,33 @@ public partial class HeartsContainer : HBoxContainer
       }
    }
 
-   public void UpdateHearts(int current)
+   public void UpdateHearts(int currentHealth)
    {
-      if(current < 0)
+      if(currentHealth < 0)
       {
          return;
       }
 
       var hearts = GetChildren();
+      var fullHearts = currentHealth / 4;
 
-      for (int i = 0; i < current; i++)
+
+      for (int i = 0; i < fullHearts; i++)
       {
-         hearts[i].Call("Update", true);
+         hearts[i].Call("Update", 4);
       }
 
-      for (int i = current; i < hearts.Count; i++)
+      if(fullHearts == hearts.Count)
       {
-         hearts[i].Call("Update", false);
+         return;
+      }
+
+      var remainder = currentHealth % 4;
+      hearts[fullHearts].Call("Update", remainder);
+
+      for (int i = (fullHearts+1); i < hearts.Count; i++)
+      {
+         hearts[i].Call("Update", 0);
       }
    }
 }

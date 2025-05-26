@@ -2,13 +2,14 @@ using Godot;
 
 namespace ARPG.Scripts.Enemies;
 
-public partial class Slime : Enemy
+public partial class Snake : Enemy
 {
    public override void _Ready()
    {
-      speed = 25;
+      speed = 35;
+      currentHealth = 4;
 
-      base._Ready();      
+      base._Ready();
    }
 
    public override void AnimationFinished(StringName animName)

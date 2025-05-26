@@ -11,15 +11,8 @@ public partial class Heart : Panel
         Sprite = GetNode<Sprite2D>("Sprite2D");
     }
 
-    public void Update(bool whole)
+    public void Update(int fraction)
     {
-        if (whole)
-        {
-            Sprite.Frame = 4;
-        }
-        else
-        {
-            Sprite.Frame = 0;
-        }
-    }
+      Sprite.Frame = fraction;
+   }
 }

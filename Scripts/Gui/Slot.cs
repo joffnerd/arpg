@@ -39,17 +39,23 @@ public partial class Slot : Button
    public ItemStack TakeItem()
    {
       var item = ItemStack;
-
       PlayerInventory.RemoveSlot(ItemStack.inventorySlot);
-      CenterContainer.RemoveChild(ItemStack);
-      ItemStack = null;
-      Background.Frame = 0;
-
       return item;
    }
 
    public bool IsEmpty()
    {
       return ItemStack == null;
+   }
+
+   public void Clear()
+   {
+      if(ItemStack != null)
+      {
+         CenterContainer.RemoveChild(ItemStack);
+         ItemStack = null;
+         
+      }
+      Background.Frame = 0;
    }
 }

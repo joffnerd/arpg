@@ -17,15 +17,8 @@ script = ExtResource("1_vy5pj")
 y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_jw32o")]
-position = Vector2(551, 167)
+position = Vector2(6, 6)
 Inventory = ExtResource("2_50glp")
-
-[node name="FollowCam" type="Camera2D" parent="Player"]
-limit_left = 0
-limit_top = 0
-limit_smoothed = true
-position_smoothing_enabled = true
-script = ExtResource("3_vy5pj")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -63,6 +56,15 @@ offset_right = 58.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="FollowCam" type="Camera2D" parent="." node_paths=PackedStringArray("Player")]
+position = Vector2(6, 6)
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("3_vy5pj")
+Player = NodePath("../Player")
 
 [connection signal="Closed" from="GUI/Inventory" to="." method="OnInventoryClosed"]
 [connection signal="Opened" from="GUI/Inventory" to="." method="OnInventoryOpened"]

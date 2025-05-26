@@ -1,3 +1,4 @@
+using ARPG.Scripts.Player;
 using Godot;
 
 namespace ARPG.Scripts.Enemies;
@@ -10,14 +11,17 @@ public partial class Enemy : CharacterBody2D
    [Export]
    public Marker2D EndPoint;
 
+   public Player.Player Target;
    public AnimationPlayer Animations;
    public Area2D HitBox;
    public Timer KnockbackTimer;
+   public AudioStreamPlayer AudioEffects;
 
    public Vector2 StartPosition;
    public Vector2 EndPosition;
    public Vector2 DeathPosition;
 
+   public int currentHealth = 2;
    public int speed = 10;
    public float moveLimit = 0.5f;
    public bool isDead = false;
@@ -28,6 +32,8 @@ public partial class Enemy : CharacterBody2D
       Animations.AnimationFinished += AnimationFinished;
 
       HitBox = GetNode<Area2D>("HitBox");
+
+      AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
 
       DeathPosition = GlobalPosition;
       StartPosition = GlobalPosition;
@@ -53,9 +59,37 @@ public partial class Enemy : CharacterBody2D
 
    public void OnHurtBoxAreaEntered(Area2D area)
    {
-      GD.Print(string.Format("Slime Hurt: {0} -> {1}", area.GetParent().Name, area.Name));
+      if (area.GetParent() is Weapon)
+      {
+         TakeDamage(area);
+      }
+   }
 
-      if (area.GetParent().Name == "Weapon")
+   public void OnFollowTriggerBodyEntered(Node2D body)
+   {
+      if (body is Player.Player)
+      {
+         Target = body as Player.Player;
+      }
+   }
+
+   public void OnFollowTriggerBodyExited(Node2D body)
+   {
+      if (body == Target)
+      {
+         Target = null;
+      }
+   }
+
+   public void TakeDamage(Area2D area)
+   {     
+      AudioEffects.Play();
+
+      currentHealth -= 1;
+
+      GD.Print(string.Format("{0} Hurt: {1} -> {2}", Name, area.Name, currentHealth));
+
+      if (currentHealth < 1)
       {
          DeathPosition = GlobalPosition;
          isDead = true;
@@ -66,6 +100,14 @@ public partial class Enemy : CharacterBody2D
 
    public void UpdateVelocity()
    {
+      if(Target != null)
+      {
+         var d = Target.GlobalPosition - GlobalPosition;
+         var v = d.Normalized() * speed;
+         Velocity = v;
+         return;
+      }
+
       var moveDirection = EndPosition - GlobalPosition;
       if (moveDirection.Length() < moveLimit)
       {

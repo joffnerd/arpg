@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7idxkbyy4p0v"]
+[gd_scene load_steps=16 format=3 uid="uid://cka2acs5tssjk"]
 
-[ext_resource type="Texture2D" uid="uid://vlt842ekw0gx" path="res://Art/Enemies/Slime.png" id="1_jvx6n"]
-[ext_resource type="Script" uid="uid://bh5peifl4gekk" path="res://Scripts/Enemies/Slime.cs" id="1_kexyb"]
-[ext_resource type="Texture2D" uid="uid://crcxkukwb8rqq" path="res://Art/Enemies/Smoke.png" id="3_s88bi"]
-[ext_resource type="AudioStream" uid="uid://co26eeoovhbht" path="res://Audio/Effects/Hit9.wav" id="4_ua82p"]
+[ext_resource type="Script" uid="uid://r0k0y54ck7hk" path="res://Scripts/Enemies/Snake.cs" id="1_2ggs0"]
+[ext_resource type="Texture2D" uid="uid://c1ueo7ow71dof" path="res://Art/Enemies/Snake.png" id="2_2ggs0"]
+[ext_resource type="Texture2D" uid="uid://crcxkukwb8rqq" path="res://Art/Enemies/Smoke.png" id="3_ulgnp"]
+[ext_resource type="AudioStream" uid="uid://co26eeoovhbht" path="res://Audio/Effects/Hit9.wav" id="4_3v4wo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kexyb"]
-radius = 4.0
-height = 16.0
+radius = 6.0
+height = 18.0
 
 [sub_resource type="Animation" id="Animation_ua82p"]
 resource_name = "Death"
@@ -304,28 +304,31 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s88bi"]
-radius = 5.0
+radius = 7.0
 height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ua82p"]
-radius = 7.0
-height = 20.0
+radius = 9.0
+height = 18.0
 
-[node name="Slime" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ggs0"]
+radius = 40.0
+
+[node name="Snake" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_kexyb")
+script = ExtResource("1_2ggs0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
-texture = ExtResource("1_jvx6n")
+texture = ExtResource("2_2ggs0")
 hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
-rotation = 1.5708
+visible = false
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_kexyb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -334,15 +337,16 @@ libraries = {
 }
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -4)
-rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s88bi")
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 scale = Vector2(1.00506, 1)
 collision_layer = 2
 collision_mask = 4
@@ -355,10 +359,19 @@ shape = SubResource("CapsuleShape2D_ua82p")
 [node name="Death" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, -11)
-texture = ExtResource("3_s88bi")
+texture = ExtResource("3_ulgnp")
 hframes = 6
 
 [node name="AudioEffects" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ua82p")
+stream = ExtResource("4_3v4wo")
+
+[node name="FollowTrigger" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowTrigger"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_2ggs0")
 
 [connection signal="area_entered" from="HurtBox" to="." method="OnHurtBoxAreaEntered"]
+[connection signal="body_entered" from="FollowTrigger" to="." method="OnFollowTriggerBodyEntered"]
+[connection signal="body_exited" from="FollowTrigger" to="." method="OnFollowTriggerBodyExited"]

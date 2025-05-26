@@ -1,3 +1,4 @@
+
 using Godot;
 using Godot.Collections;
 using System.Linq;
@@ -34,10 +35,10 @@ public partial class Inventory : Control
       Slots.AddRange([.. hotBarSlots]);
       Slots.AddRange([.. slots]);
 
-      PlayerInventory.InventoryUpdated += Update;
+      PlayerInventory.InventoryUpdated += UpdateInventory;
 
       ConnectSlots();
-      Update();
+      UpdateInventory();
    }
 
    public override void _Input(InputEvent @event)   {
@@ -186,7 +187,7 @@ public partial class Inventory : Control
       itemInHand.GlobalPosition = GetGlobalMousePosition() - (itemInHand.Size / 2);
    }
 
-   public void Update()
+   public void UpdateInventory()
    {
       var min = Mathf.Min(PlayerInventory.Slots.Count, Slots.Count);
 
@@ -196,6 +197,7 @@ public partial class Inventory : Control
 
          if (inventorySlot.Item == null)
          {
+            Slots[i].Clear();
             continue;
          }
 

@@ -12,6 +12,7 @@ metadata/isWeapon = false
 metadata/isHealth = false
 metadata/isCollectable = true
 metadata/isInvItem = false
+metadata/isConsumable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5pqv7")
