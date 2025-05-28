@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dwph5f3xxsuo1"]
+[gd_scene load_steps=13 format=4 uid="uid://dwph5f3xxsuo1"]
 
 [ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_4cft0"]
 [ext_resource type="Texture2D" uid="uid://6ksck3hj6juf" path="res://Art/World/TilesetWallSimple.png" id="2_e7gd3"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="4_oy8eu"]
 [ext_resource type="Texture2D" uid="uid://b1b10mkj1elqw" path="res://Art/World/TilesetElement.png" id="5_u7adh"]
 [ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="6_avq4w"]
-[ext_resource type="AudioStream" uid="uid://cow02cabeiny1" path="res://Audio/Music/27 - Chill.ogg" id="7_t0g7u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wcjhw"]
 texture = ExtResource("2_e7gd3")
@@ -597,10 +596,11 @@ tile_set = SubResource("TileSet_u0ebd")
 
 [node name="SceneTriggers" type="Node2D" parent="."]
 
-[node name="Door" parent="SceneTriggers" instance=ExtResource("6_avq4w")]
+[node name="Exit" parent="SceneTriggers" instance=ExtResource("6_avq4w")]
 ConnectedScene = "Level1"
+EntryDoorName = "House3"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTriggers/Door"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTriggers/Exit"]
 z_index = 1
 position = Vector2(224, 194)
 shape = SubResource("RectangleShape2D_fein4")
@@ -609,8 +609,3 @@ shape = SubResource("RectangleShape2D_fein4")
 
 [node name="Start" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(223, 174)
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_t0g7u")
-autoplay = true
-parameters/looping = true

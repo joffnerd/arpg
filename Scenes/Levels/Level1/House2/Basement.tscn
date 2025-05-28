@@ -1,15 +1,15 @@
 [gd_scene load_steps=14 format=4 uid="uid://c8gki2djd8ito"]
 
-[ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_eu25y"]
-[ext_resource type="Texture2D" uid="uid://6ksck3hj6juf" path="res://Art/World/TilesetWallSimple.png" id="2_l8ogs"]
-[ext_resource type="Texture2D" uid="uid://bfblia3r6l1wl" path="res://Art/World/TilesetInteriorFloor.png" id="3_0igd1"]
-[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="4_mm0jm"]
-[ext_resource type="Texture2D" uid="uid://b1b10mkj1elqw" path="res://Art/World/TilesetElement.png" id="5_gyba5"]
-[ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="6_5cdm4"]
-[ext_resource type="AudioStream" uid="uid://cow02cabeiny1" path="res://Audio/Music/27 - Chill.ogg" id="7_l2012"]
+[ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_5atdg"]
+[ext_resource type="Texture2D" uid="uid://6ksck3hj6juf" path="res://Art/World/TilesetWallSimple.png" id="2_f6puf"]
+[ext_resource type="Texture2D" uid="uid://bfblia3r6l1wl" path="res://Art/World/TilesetInteriorFloor.png" id="3_v2vae"]
+[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="4_r6juq"]
+[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="5_f6puf"]
+[ext_resource type="Texture2D" uid="uid://b1b10mkj1elqw" path="res://Art/World/TilesetElement.png" id="5_yenrl"]
+[ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="6_aw58d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_setoy"]
-texture = ExtResource("2_l8ogs")
+texture = ExtResource("2_f6puf")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -114,7 +114,7 @@ texture = ExtResource("2_l8ogs")
 9:10/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tpjqu"]
-texture = ExtResource("3_0igd1")
+texture = ExtResource("3_v2vae")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -411,10 +411,11 @@ texture = ExtResource("3_0igd1")
 19:16/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_vvpoe"]
-scenes/1/scene = ExtResource("4_mm0jm")
+scenes/1/scene = ExtResource("4_r6juq")
+scenes/2/scene = ExtResource("5_f6puf")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2tvw"]
-texture = ExtResource("5_gyba5")
+texture = ExtResource("5_yenrl")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -554,7 +555,10 @@ texture = ExtResource("5_gyba5")
 7:11/0 = 0
 8:11/0 = 0
 9:11/0 = 0
+6:12/next_alternative_id = 2
 6:12/0 = 0
+6:12/1 = 1
+6:12/1/flip_h = true
 7:12/0 = 0
 8:12/0 = 0
 9:12/0 = 0
@@ -575,11 +579,11 @@ sources/3 = SubResource("TileSetAtlasSource_l2tvw")
 sources/2 = SubResource("TileSetScenesCollectionSource_vvpoe")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ieiu"]
-size = Vector2(13, 10)
+size = Vector2(10, 8.5)
 
-[node name="Stairs" type="Node2D"]
+[node name="Basement" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_eu25y")
+script = ExtResource("1_5atdg")
 
 [node name="Layers" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -592,25 +596,24 @@ tile_set = SubResource("TileSet_04aja")
 [node name="Items" type="TileMapLayer" parent="Layers"]
 z_index = 1
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAQAAoAAwACAAkAAAARAAoAAwACAAkAAAALAAoAAwACAAkAAAAQAAkAAwAGAAwAAAA=")
+tile_map_data = PackedByteArray("AAAQAAoAAwACAAkAAAARAAoAAwACAAkAAAALAAoAAwACAAkAAAALAAcAAgAAAAAAAgAKAAoAAgAAAAAAAQAPAAcAAwAGAAwAAQA=")
 tile_set = SubResource("TileSet_04aja")
 
 [node name="SceneTriggers" type="Node2D" parent="."]
 
-[node name="Stairs" parent="SceneTriggers" instance=ExtResource("6_5cdm4")]
+[node name="Stairs" parent="SceneTriggers" instance=ExtResource("6_aw58d")]
+z_index = 1
+position = Vector2(-5, -31)
+EntryDirection = 3
 ConnectedScene = "Level1/House2"
+EntryDoorName = "Stairs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTriggers/Stairs"]
 z_index = 1
-position = Vector2(264.5, 154)
+position = Vector2(254, 152.25)
 shape = SubResource("RectangleShape2D_3ieiu")
 
 [node name="EntranceMarkers" type="Node2D" parent="."]
 
 [node name="Start" type="Marker2D" parent="EntranceMarkers"]
-position = Vector2(245, 153)
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_l2012")
-autoplay = true
-parameters/looping = true
+position = Vector2(266, 122)

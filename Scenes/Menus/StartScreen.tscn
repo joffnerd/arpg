@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://dy06fpapockt1"]
+
+[ext_resource type="Script" uid="uid://b5u8kvaw2lpyg" path="res://Scripts/Menus/StartScreen.cs" id="1_rfqy2"]
+[ext_resource type="FontFile" uid="uid://cf8hi7521xb2k" path="res://Art/Font/OpenSans-Bold.ttf" id="2_bl73h"]
+[ext_resource type="Texture2D" uid="uid://dvesg7rcac1cs" path="res://Art/Title.png" id="2_etm43"]
+[ext_resource type="AudioStream" uid="uid://dicfldxul61cx" path="res://Audio/Music/6 - Story.ogg" id="4_etm43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng4jn"]
+bg_color = Color(0, 0.439216, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.996078, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.360784)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r03hu"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.360784)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rfqy2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(120, 73)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_etm43")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_bl73h")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/hover = SubResource("StyleBoxFlat_ng4jn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r03hu")
+text = "Start"
+
+[node name="VersionNum" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 3.0
+offset_right = 63.0
+offset_bottom = 11.0
+theme_override_font_sizes/font_size = 5
+text = "version"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_etm43")
+autoplay = true
+parameters/looping = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 27.0
+offset_right = 165.0
+offset_bottom = 119.0
+rotation = -0.104627
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_bl73h")
+theme_override_font_sizes/normal_font_size = 21
+text = "The Adventures of Joff"
+horizontal_alignment = 1
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/MarginContainer/Button" to="." method="OnEnterButtonUp"]

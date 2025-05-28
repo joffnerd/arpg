@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://rkliopq3o2yy"]
+[gd_scene load_steps=25 format=4 uid="uid://rkliopq3o2yy"]
 
 [ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_e42qo"]
 [ext_resource type="Texture2D" uid="uid://vqdyqpbfr08e" path="res://Art/World/TilesetFloor.png" id="2_8yyh2"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://b7idxkbyy4p0v" path="res://Scenes/Enemies/Slime.tscn" id="9_xnrx5"]
 [ext_resource type="PackedScene" uid="uid://cka2acs5tssjk" path="res://Scenes/Enemies/Snake.tscn" id="10_lsqv2"]
 [ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="11_6g68a"]
-[ext_resource type="AudioStream" uid="uid://dexhrdxo5s73n" path="res://Audio/Music/1 - Adventure Begin.ogg" id="12_mtnd8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nsto"]
 texture = ExtResource("2_8yyh2")
@@ -1688,14 +1687,14 @@ EndPoint = NodePath("Marker2D")
 position = Vector2(6, -38)
 
 [node name="Snake1" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("10_lsqv2")]
-position = Vector2(562, 176)
+position = Vector2(570, 196)
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Snake1"]
 position = Vector2(-1, 36)
 
 [node name="Snake2" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("10_lsqv2")]
-position = Vector2(597, 271)
+position = Vector2(589, 306)
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Snake2"]
@@ -1731,7 +1730,7 @@ shape = SubResource("RectangleShape2D_73dir")
 
 [node name="EntranceMarkers" type="Node2D" parent="."]
 
-[node name="Start1" type="Marker2D" parent="EntranceMarkers"]
+[node name="Start" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(62, 58)
 
 [node name="House1" type="Marker2D" parent="EntranceMarkers"]
@@ -1742,12 +1741,3 @@ position = Vector2(672, 196)
 
 [node name="House3" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(663, 341)
-
-[node name="Start" type="Marker2D" parent="EntranceMarkers"]
-position = Vector2(576, 116)
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_mtnd8")
-volume_db = -20.083
-autoplay = true
-parameters/looping = true
