@@ -16,6 +16,7 @@ public partial class Player : CharacterBody2D
    public AnimationPlayer VisualEffects;
    public AudioStreamPlayer AudioEffects;
    public AudioStream AudioAttack;
+   public AudioStream AudioAttackFail;
    public AudioStream AudioHurt;
    public AudioStream AudioCollect;
    public Timer HitTimer;
@@ -31,6 +32,7 @@ public partial class Player : CharacterBody2D
    private bool isHit = false;
    private bool isAttacking = false;   
    private string lastAnimDirection = "Down";
+   private bool inputEnabled = true;
 
    public override void _Ready()
    {
@@ -41,8 +43,9 @@ public partial class Player : CharacterBody2D
 
       AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
       AudioAttack = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Slash.wav");
+      AudioAttackFail = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Sword2.wav");
       AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");
-      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");
+      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");      
 
       HitTimer = GetNode<Timer>("HitTimer");
       HitTimer.Timeout += HitTimerTimeout;
@@ -58,10 +61,27 @@ public partial class Player : CharacterBody2D
 
    public override void _PhysicsProcess(double delta)
    {
+      if (!inputEnabled)
+      {
+         return;
+      }
+
       HandleInput();
       MoveAndSlide();
       UpdateAnimation();
       CheckTakeDamage();      
+   }
+
+   public void Disable()
+   {
+      inputEnabled = false;
+      VisualEffects.Play("RESET");
+   }
+
+   public void Enable()
+   {
+      inputEnabled = true;
+      Visible = true;
    }
 
    private void HitTimerTimeout()
@@ -86,7 +106,6 @@ public partial class Player : CharacterBody2D
       {
          return;
       }
-
 
       var item = area as Collectable;
       item.BuildMeta(area);
@@ -176,10 +195,12 @@ public partial class Player : CharacterBody2D
    }
 
    public void Attack()
-   {
-      
+   {      
       if (!haveWeapon)
       {
+         AudioEffects.Stream = AudioAttackFail;
+         AudioEffects.Play();
+
          return;
       }
       

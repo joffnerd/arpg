@@ -1,4 +1,5 @@
 using ARPG.Resources;
+using ARPG.Scripts.Autoload;
 using Godot;
 using Godot.Collections;
 

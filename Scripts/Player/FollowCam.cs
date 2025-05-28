@@ -25,7 +25,7 @@ public partial class FollowCam : Camera2D
       PositionSmoothingEnabled = smoothing;
    }
 
-   public void SetLimits()
+   public void SetCameraLimits()
    {
       TileMapLayer ground = CurrentMap.GetChildren()[0].GetNode<Node2D>("Layers").GetChildren()[0] as TileMapLayer;
       TileMapLayer = ground;

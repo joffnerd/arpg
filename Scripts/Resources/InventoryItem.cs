@@ -1,4 +1,4 @@
-using ARPG.Scripts;
+using ARPG.Scripts.Autoload;
 using Godot;
 
 namespace ARPG.Resources;
@@ -16,7 +16,7 @@ public partial class InventoryItem : Resource
    public int MaxStackAmount = 10;
 
    public AudioStream Success;
-   public AudioStream Failure;
+   public AudioStream Failure;   
 
    public InventoryItem()
    {
@@ -25,6 +25,15 @@ public partial class InventoryItem : Resource
    }
 
    public virtual void UseItem()
+   {
+      PlaySound();
+   }
+
+   public virtual bool CanUseItem() {
+      return true;
+   }
+
+   public void PlaySound()
    {
       var audio = SceneManager.Instance.Player.AudioEffects;
       AudioStream result;
@@ -40,9 +49,5 @@ public partial class InventoryItem : Resource
 
       audio.Stream = result;
       audio.Play();
-   }
-
-   public virtual bool CanUseItem() {
-      return true;
    }
 }

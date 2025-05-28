@@ -1,47 +1,83 @@
+using ARPG.Scripts.Autoload;
 using ARPG.Scripts.Gui;
+using ARPG.Scripts.Levels;
+using ARPG.Scripts.Menus;
+using ARPG.Scripts.Player;
 using Godot;
 
 namespace ARPG.Scripts;
 
-public partial class Main : Node
+[Tool]
+public partial class Main : Node2D
 {
+   [Signal]
+   public delegate void PlayerReadyEventHandler();
+
    public Node2D CurrentMap;
    public Player.Player Player;
-   public CanvasLayer GUI;
+   public CanvasLayer GUI;   
    public HeartsContainer HeartsContainer;
+   public FollowCam FollowCam;
+
+   public BaseLevel currentLevel;
 
    public override void _Ready()
    {
-      CurrentMap = GetNode<Node2D>("CurrentMap");
-      Player = GetNode<Player.Player>("Player");
+      //GD.Print("M  - Ready");
+
+      SceneManager.Instance.LoadStart += LoadStart;
+      SceneManager.Instance.LoadComplete += LevelLoaded;
+      SceneManager.Instance.SceneAdded += LevelAdded;
+
+      Player = GetNode("Player") as Player.Player;
       SceneManager.Instance.Player = Player;
+      EmitSignal(SignalName.PlayerReady);
+      //GD.Print("M  - PlayerReady " + player);
 
       GUI = GetNode<CanvasLayer>("GUI");
       HeartsContainer = GetNode<HeartsContainer>("GUI/HeartsContainer");
+      HeartsContainer.SetMaxHearts(SceneManager.Instance.Player.maxHealth);
+      HeartsContainer.UpdateHearts(SceneManager.Instance.Player.currentHealth);
+      SceneManager.Instance.Player.HealthChanged += HeartsContainer.UpdateHearts;
 
-      HeartsContainer.SetMaxHearts(Player.maxHealth);
-      HeartsContainer.UpdateHearts(Player.currentHealth);      
-      Player.HealthChanged += HeartsContainer.UpdateHearts;      
+      FollowCam = GetNode<FollowCam>("FollowCam");
 
-      Init();
+      CurrentMap = GetNode<Node2D>("CurrentMap");
+      currentLevel = CurrentMap.GetChild(0) as BaseLevel;
    }
 
-   public override void _Input(InputEvent @event)
+   private void LoadStart(LoadingScreen loadingScreen)
    {
-      base._Input(@event);
+      //GD.Print("M  - LoadStart");
 
-      if (Input.IsActionJustPressed("ui_rclick"))
+      /*
+      loadingScreen.Reparent(this);
+      MoveChild(loadingScreen, GUI.GetIndex());
+      */
+   }
+
+   private void LevelLoaded(Node2D level)
+   {
+      //GD.Print("M  - LevelLoaded");
+
+      if (level is BaseLevel)
       {
-         var temp = CurrentMap.GetGlobalMousePosition();
-
-         GD.Print("X: " + temp.X);
-         GD.Print("Y: " + temp.Y);
+         currentLevel = (BaseLevel)level;
       }
    }
 
-   public void Init()
+   private void LevelAdded(Node2D level, LoadingScreen loadingScreen)
    {
-      SceneManager.Instance.ChangeScene(null, "Level1");      
+      //GD.Print("M  - LevelAdded");
+
+      /*
+      if (loadingScreen != null) {
+         var loadingParent = loadingScreen.GetParent() as Node;
+         loadingParent.MoveChild(loadingScreen, loadingParent.GetChildCount() - 1);
+      }
+
+      MoveChild(GUI, GetChildCount() - 1);
+      */
    }
 
    public void OnInventoryClosed()

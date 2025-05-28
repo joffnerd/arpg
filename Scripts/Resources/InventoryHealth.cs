@@ -1,4 +1,4 @@
-using ARPG.Scripts;
+using ARPG.Scripts.Autoload;
 using Godot;
 
 namespace ARPG.Resources;

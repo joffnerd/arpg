@@ -1,5 +1,6 @@
 using ARPG.Scripts.Player;
 using Godot;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ARPG.Scripts.Enemies;
 
@@ -16,6 +17,7 @@ public partial class Enemy : CharacterBody2D
    public Area2D HitBox;
    public Timer KnockbackTimer;
    public AudioStreamPlayer AudioEffects;
+   public Timer DamageTimer;
 
    public Vector2 StartPosition;
    public Vector2 EndPosition;
@@ -25,6 +27,7 @@ public partial class Enemy : CharacterBody2D
    public int speed = 10;
    public float moveLimit = 0.5f;
    public bool isDead = false;
+   public bool isTakingDamage = false;
 
    public override void _Ready()
    {
@@ -35,14 +38,28 @@ public partial class Enemy : CharacterBody2D
 
       AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
 
+      DamageTimer = new Timer()
+      {
+         WaitTime = 0.5
+      };
+      AddChild(DamageTimer);
+      DamageTimer.Timeout += DamageTimer_Timeout; ;
+
       DeathPosition = GlobalPosition;
       StartPosition = GlobalPosition;
       EndPosition = EndPoint.GlobalPosition;
    }
 
+   private void DamageTimer_Timeout()
+   {
+      isTakingDamage = false;
+   }
+
    public override void _PhysicsProcess(double delta)
    {
       if (isDead) return;
+
+      if (isTakingDamage) return;
 
       UpdateVelocity();
       UpdateAnimation();
@@ -61,7 +78,7 @@ public partial class Enemy : CharacterBody2D
    {
       if (area.GetParent() is Weapon)
       {
-         TakeDamage(area);
+         TakeDamage(area);         
       }
    }
 
@@ -82,7 +99,10 @@ public partial class Enemy : CharacterBody2D
    }
 
    public void TakeDamage(Area2D area)
-   {     
+   {
+      DamageTimer.Start();
+      isTakingDamage = true;
+
       AudioEffects.Play();
 
       currentHealth -= 1;
@@ -100,7 +120,7 @@ public partial class Enemy : CharacterBody2D
 
    public void UpdateVelocity()
    {
-      if(Target != null)
+      if (Target != null)
       {
          var d = Target.GlobalPosition - GlobalPosition;
          var v = d.Normalized() * speed;
