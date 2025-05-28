@@ -11,21 +11,23 @@ config_version=5
 [application]
 
 config/name="ARPG"
-run/main_scene="uid://d2a1lfyn4va0o"
+run/main_scene="uid://dy06fpapockt1"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://Art/icon.svg"
 
 [autoload]
 
-GlobalSceneManager="*res://Scripts/SceneManager.cs"
+SceneManager="*res://Scripts/Autoload/SceneManager.cs"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
-window/size/window_width_override=1920
-window/size/window_height_override=1080
+window/size/viewport_width=240
+window/size/viewport_height=144
+window/size/resizable=false
+window/size/window_width_override=960
+window/size/window_height_override=576
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
 
 [dotnet]
 
