@@ -6,6 +6,12 @@
 [ext_resource type="Script" uid="uid://sdt6enp61xlq" path="res://Scripts/Player/Weapon.cs" id="3_ude3g"]
 [ext_resource type="AudioStream" uid="uid://bpfdyvveur5eg" path="res://Audio/Effects/Slash.wav" id="5_jmcll"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft8w5"]
+size = Vector2(14.6993, 5.37288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h54ih"]
+size = Vector2(14, 10.7724)
+
 [sub_resource type="Animation" id="Animation_tok1r"]
 length = 0.001
 tracks/0/type = "value"
@@ -294,12 +300,6 @@ _data = {
 &"walkUp": SubResource("Animation_ddoul")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft8w5"]
-size = Vector2(14.6993, 5.37288)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h54ih"]
-size = Vector2(14, 14)
-
 [sub_resource type="Animation" id="Animation_ft8w5"]
 resource_name = "HurtBlink"
 length = 0.4
@@ -342,9 +342,13 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
-collision_layer = 17
-collision_mask = 3
+collision_mask = 193
 script = ExtResource("1_q3lat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.78814e-07, -1.5)
+scale = Vector2(0.816363, 0.558359)
+shape = SubResource("RectangleShape2D_ft8w5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 clip_children = 2
@@ -361,31 +365,14 @@ offset_bottom = 21.0
 scale = Vector2(0.917499, 0.716699)
 color = Color(0, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_tok1r")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.78814e-07, -1.5)
-scale = Vector2(0.816363, 0.558359)
-shape = SubResource("RectangleShape2D_ft8w5")
-
 [node name="HurtBox" type="Area2D" parent="."]
 scale = Vector2(0.995165, 1.29962)
-collision_mask = 10
+collision_layer = 2
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, -7)
+position = Vector2(0, -5.38619)
 shape = SubResource("RectangleShape2D_h54ih")
-
-[node name="VisualEffects" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_h54ih")
-}
-
-[node name="HitTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Weapon" type="Node2D" parent="."]
 position = Vector2(-5, 4)
@@ -394,8 +381,20 @@ script = ExtResource("3_ude3g")
 
 [node name="BigSword" parent="Weapon" instance=ExtResource("3_h54ih")]
 position = Vector2(-2.48501, -3.2901)
-collision_layer = 4
-collision_mask = 2
+collision_layer = 20
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tok1r")
+}
+
+[node name="VisualEffects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h54ih")
+}
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AudioEffects" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_jmcll")

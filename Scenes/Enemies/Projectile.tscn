@@ -7,7 +7,8 @@
 radius = 7.0
 
 [node name="Projectile" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_xqss5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,7 +20,7 @@ shape = SubResource("CircleShape2D_fld28")
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

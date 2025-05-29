@@ -1,12 +1,12 @@
-[gd_scene load_steps=25 format=4 uid="uid://rkliopq3o2yy"]
+[gd_scene load_steps=26 format=4 uid="uid://rkliopq3o2yy"]
 
 [ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_e42qo"]
 [ext_resource type="Texture2D" uid="uid://vqdyqpbfr08e" path="res://Art/World/TilesetFloor.png" id="2_8yyh2"]
 [ext_resource type="Texture2D" uid="uid://30qb3ybvvphw" path="res://Art/World/TilesetNature.png" id="3_74h8q"]
 [ext_resource type="Texture2D" uid="uid://f4i0kkvubyei" path="res://Art/World/AnimFlower.png" id="4_pi8wi"]
-[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="5_u6ae2"]
-[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="6_qboh7"]
-[ext_resource type="PackedScene" uid="uid://drk7qc20hbjhq" path="res://Scenes/Objects/LifeHeart.tscn" id="7_xfirl"]
+[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="5_f3nwb"]
+[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="7_57lp3"]
+[ext_resource type="PackedScene" uid="uid://jd66tdr21cy6" path="res://Scenes/Objects/Gem.tscn" id="7_n5ptj"]
 [ext_resource type="Texture2D" uid="uid://cp0cpk4582kxx" path="res://Art/World/TilesetHouse.png" id="8_u4pba"]
 [ext_resource type="PackedScene" uid="uid://b7idxkbyy4p0v" path="res://Scenes/Enemies/Slime.tscn" id="9_xnrx5"]
 [ext_resource type="PackedScene" uid="uid://cka2acs5tssjk" path="res://Scenes/Enemies/Snake.tscn" id="10_lsqv2"]
@@ -1173,8 +1173,8 @@ texture = ExtResource("4_pi8wi")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.3783, 8, -2.2792, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_p70al"]
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_gjpho")
 sources/1 = SubResource("TileSetAtlasSource_45d1s")
 
@@ -1574,21 +1574,25 @@ texture = ExtResource("4_pi8wi")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.3783, 8, -2.2792, 8, 8, -8, 8)
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_57lp3"]
+scenes/1/scene = ExtResource("5_f3nwb")
+
 [sub_resource type="TileSet" id="TileSet_45d1s"]
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_p70al")
 sources/1 = SubResource("TileSetAtlasSource_y7y61")
+sources/2 = SubResource("TileSetScenesCollectionSource_57lp3")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_kn06e"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_jcebb"]
 resource_name = "Items"
-scenes/1/scene = ExtResource("5_u6ae2")
-scenes/2/scene = ExtResource("6_qboh7")
-scenes/4/scene = ExtResource("7_xfirl")
+scenes/1/scene = ExtResource("7_n5ptj")
+scenes/2/scene = ExtResource("5_f3nwb")
+scenes/3/scene = ExtResource("7_57lp3")
 
-[sub_resource type="TileSet" id="TileSet_q2d71"]
+[sub_resource type="TileSet" id="TileSet_8h4de"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetScenesCollectionSource_kn06e")
+sources/0 = SubResource("TileSetScenesCollectionSource_jcebb")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0v0gn"]
 texture = ExtResource("8_u4pba")
@@ -1606,7 +1610,8 @@ texture = ExtResource("8_u4pba")
 19:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-22.8421, 1.70866, 22.4823, 2.42809, 22.8421, 22.7521, 7.91378, 22.3924, 8, 8, -8, 8, -8.63322, 22.5723, -23.5615, 22.932)
 
 [sub_resource type="TileSet" id="TileSet_n8hij"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_0v0gn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73dir"]
@@ -1639,8 +1644,8 @@ tile_set = SubResource("TileSet_45d1s")
 
 [node name="Items" type="TileMapLayer" parent="Layers"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAYAAQAAAAAAAAAAQAZABcAAAAAAAAAAgADAAwAAAAAAAAAAQA=")
-tile_set = SubResource("TileSet_q2d71")
+tile_map_data = PackedByteArray("AAADAAwAAAAAAAAAAgADAA0AAAAAAAAAAQA=")
+tile_set = SubResource("TileSet_8h4de")
 
 [node name="Buildings" type="TileMapLayer" parent="Layers"]
 z_index = 1
@@ -1653,6 +1658,7 @@ y_sort_enabled = true
 
 [node name="Slime1" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(174, 77)
+collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime1"]
@@ -1660,6 +1666,7 @@ position = Vector2(-19, 27)
 
 [node name="Slime2" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(363, 109)
+collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime2"]
@@ -1667,6 +1674,7 @@ position = Vector2(-1, -49)
 
 [node name="Slime3" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(192, 191)
+collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime3"]
@@ -1674,6 +1682,7 @@ position = Vector2(46, -3)
 
 [node name="Slime4" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(52, 279)
+collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime4"]
@@ -1681,6 +1690,7 @@ position = Vector2(33, -25)
 
 [node name="Slime5" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(384, 299)
+collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime5"]
@@ -1688,6 +1698,7 @@ position = Vector2(6, -38)
 
 [node name="Snake1" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("10_lsqv2")]
 position = Vector2(570, 196)
+collision_mask = 1
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Snake1"]
@@ -1695,6 +1706,7 @@ position = Vector2(-1, 36)
 
 [node name="Snake2" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("10_lsqv2")]
 position = Vector2(589, 306)
+collision_mask = 1
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Snake2"]
@@ -1743,4 +1755,4 @@ position = Vector2(672, 196)
 position = Vector2(663, 341)
 
 [node name="Start" type="Marker2D" parent="EntranceMarkers"]
-position = Vector2(548, 140)
+position = Vector2(53, 171)

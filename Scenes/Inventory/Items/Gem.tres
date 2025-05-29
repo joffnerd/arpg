@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://blt61085mg6jw"]
+
+[ext_resource type="Script" uid="uid://cm6672mi4e08m" path="res://Scripts/Resources/InventoryItem.cs" id="1_uiui8"]
+[ext_resource type="Texture2D" uid="uid://bqivssrhoaanh" path="res://Art/Objects/Valuable/GemGreen.png" id="1_xiww0"]
+
+[resource]
+script = ExtResource("1_uiui8")
+Name = "Gem"
+Texture = ExtResource("1_xiww0")
+MaxStackAmount = 99
+metadata/_custom_type_script = "uid://cm6672mi4e08m"
