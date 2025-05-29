@@ -18,7 +18,6 @@ public partial class Player : CharacterBody2D
    public AudioStream AudioAttack;
    public AudioStream AudioAttackFail;
    public AudioStream AudioHurt;
-   public AudioStream AudioCollect;
    public Timer HitTimer;
    public Area2D HurtBox;
    public Weapon Weapon;
@@ -44,8 +43,7 @@ public partial class Player : CharacterBody2D
       AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
       AudioAttack = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Slash.wav");
       AudioAttackFail = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Sword2.wav");
-      AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");
-      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");      
+      AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");      
 
       HitTimer = GetNode<Timer>("HitTimer");
       HitTimer.Timeout += HitTimerTimeout;
@@ -112,10 +110,7 @@ public partial class Player : CharacterBody2D
 
       var isCollectable = (bool)area.GetMeta("isCollectable");
       if (isCollectable)
-      {
-         AudioEffects.Stream = AudioCollect;
-         AudioEffects.Play();
-         
+      {        
          item.Collect(Inventory);
       }
    }
@@ -172,9 +167,9 @@ public partial class Player : CharacterBody2D
       AudioEffects.Play();
    }
 
-   public void ToggleWeapon()
+   public void ToggleWeapon(bool have)
    {
-      haveWeapon = !haveWeapon;
+      haveWeapon = have;
    }
 
    public void HandleInput()

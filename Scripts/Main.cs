@@ -7,7 +7,6 @@ using Godot;
 
 namespace ARPG.Scripts;
 
-[Tool]
 public partial class Main : Node2D
 {
    [Signal]
@@ -18,6 +17,8 @@ public partial class Main : Node2D
    public CanvasLayer GUI;   
    public HeartsContainer HeartsContainer;
    public FollowCam FollowCam;
+   public AudioStreamPlayer Music;
+   public AudioStreamPlayer Effects;
 
    public BaseLevel currentLevel;
 
@@ -28,6 +29,9 @@ public partial class Main : Node2D
       SceneManager.Instance.LoadStart += LoadStart;
       SceneManager.Instance.LoadComplete += LevelLoaded;
       SceneManager.Instance.SceneAdded += LevelAdded;
+
+      CurrentMap = GetNode<Node2D>("CurrentMap");
+      currentLevel = CurrentMap.GetChild(0) as BaseLevel;
 
       Player = GetNode("Player") as Player.Player;
       SceneManager.Instance.Player = Player;
@@ -42,8 +46,8 @@ public partial class Main : Node2D
 
       FollowCam = GetNode<FollowCam>("FollowCam");
 
-      CurrentMap = GetNode<Node2D>("CurrentMap");
-      currentLevel = CurrentMap.GetChild(0) as BaseLevel;
+      Music = GetNode<AudioStreamPlayer>("Music");
+      Effects = GetNode<AudioStreamPlayer>("Effects");
    }
 
    private void LoadStart(LoadingScreen loadingScreen)

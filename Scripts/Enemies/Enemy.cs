@@ -1,6 +1,5 @@
 using ARPG.Scripts.Player;
 using Godot;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ARPG.Scripts.Enemies;
 
@@ -28,6 +27,7 @@ public partial class Enemy : CharacterBody2D
    public float moveLimit = 0.5f;
    public bool isDead = false;
    public bool isTakingDamage = false;
+   public bool isFollowing = false;
 
    public override void _Ready()
    {
@@ -68,10 +68,15 @@ public partial class Enemy : CharacterBody2D
 
    public virtual void AnimationFinished(StringName animName)
    {
-      QueueFree();
+      GD.Print(animName);
 
-      CharacterBody2D enemy = this;
-      EmitSignal(SignalName.EnemyDeath, enemy);
+      if(animName == "Death")
+      {
+         CharacterBody2D enemy = this;
+         EmitSignal(SignalName.EnemyDeath, enemy);
+
+         QueueFree();
+      }
    }
 
    public void OnHurtBoxAreaEntered(Area2D area)
@@ -86,6 +91,7 @@ public partial class Enemy : CharacterBody2D
    {
       if (body is Player.Player)
       {
+         isFollowing = true;
          Target = body as Player.Player;
       }
    }
@@ -94,6 +100,7 @@ public partial class Enemy : CharacterBody2D
    {
       if (body == Target)
       {
+         isFollowing = false;
          Target = null;
       }
    }

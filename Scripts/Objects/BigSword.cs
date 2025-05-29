@@ -14,6 +14,8 @@ public partial class BigSword : Collectable
    {
       Animations = GetNode<AnimationPlayer>("AnimationPlayer");
       Animations.AnimationFinished += AnimationFinished;
+
+      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/LevelUp1.wav");
    }
 
    private void AnimationFinished(StringName animName)

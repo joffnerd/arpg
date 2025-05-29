@@ -8,7 +8,7 @@ public partial class HeartsContainer : HBoxContainer
 
    public override void _Ready()
    {
-      HeartScene = GD.Load<PackedScene>("res://Scenes/Gui/Heart.tscn");
+      HeartScene = GD.Load<PackedScene>("res://Scenes/Gui/Health/Heart.tscn");
    }
 
    public void SetMaxHearts(int hearts)

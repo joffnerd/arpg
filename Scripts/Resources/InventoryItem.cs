@@ -16,7 +16,7 @@ public partial class InventoryItem : Resource
    public int MaxStackAmount = 10;
 
    public AudioStream Success;
-   public AudioStream Failure;   
+   public AudioStream Failure;
 
    public InventoryItem()
    {
@@ -29,7 +29,8 @@ public partial class InventoryItem : Resource
       PlaySound();
    }
 
-   public virtual bool CanUseItem() {
+   public virtual bool CanUseItem()
+   {
       return true;
    }
 

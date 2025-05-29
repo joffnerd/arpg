@@ -77,7 +77,7 @@ public partial class BaseLevel : Node2D
          SceneManager.Instance.Player.GlobalPosition = position.GlobalPosition;
       }
 
-      SceneManager.Instance.Main.FollowCam.SetCameraLimits();
+      //SceneManager.Instance.Main.FollowCam.SetCameraLimits();
    }
 
    private void OnPlayerEnterTrigger(SceneTrigger trigger)
