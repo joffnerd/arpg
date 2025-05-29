@@ -10,14 +10,4 @@ public partial class InventoryWeapon : InventoryItem
    {
       Success = ResourceLoader.Load<AudioStream>("res://Audio/Effects/LevelUp1.wav");
    }
-
-   public override void UseItem()
-   {
-      base.UseItem();
-   }
-
-   public override bool CanUseItem()
-   {
-      return false;
-   }
 }

@@ -1,94 +1,109 @@
+using ARPG.Scripts.Gui;
 using Godot;
 using Godot.Collections;
+using System.Linq;
 
 namespace ARPG.Resources;
 
 [GlobalClass]
 public partial class Inventory : Resource
 {
-   [Signal]
-   public delegate void InventoryUpdatedEventHandler();
+    [Signal]
+    public delegate void InventoryUpdatedEventHandler();
 
-   [Export]
-   public Array<InventorySlot> Slots;
+    [Export]
+    public Array<InventorySlot> Slots;
 
-   private int lastUsedItemIndex = -1;
+    private int lastUsedItemIndex = -1;
 
-   public void Insert(InventoryItem item)
-   {
-      foreach (InventorySlot slot in Slots)
-      {
-         if (slot.Item == item)
-         {
-            slot.Amount++;
+    public void Insert(InventoryItem item)
+    {
+        var amount = 1;
+        var invType = item.GetType().ToString();
+
+        GD.Print(invType);
+
+        switch (invType)
+        {
+            case "ARPG.Resources.InventoryGem":
+                amount = ((InventoryGem)item).Value;
+                break;
+        }
+
+        // already have it
+        var existing = Slots.Where(x => x.Item == item).FirstOrDefault();
+        if (existing != null)
+        {
+            existing.Amount += amount;
             EmitSignal(SignalName.InventoryUpdated);
             return;
-         }
-      }
+        }
 
-      for (int i = 0; i < Slots.Count; i++)
-      {
-         if (Slots[i].Item == null)
-         {
-            Slots[i].Item = item;
-            Slots[i].Amount = 1;
+        // new item
+        var empty = Slots.Where(x => x.Item == null).FirstOrDefault();
+        if (empty != null)
+        {
+            empty.Item = item;
+            empty.Amount = amount;
             EmitSignal(SignalName.InventoryUpdated);
             return;
-         }
-      }
-   }
+        }
 
-   public void RemoveSlot(InventorySlot inventorySlot)
-   {
-      var index = Slots.IndexOf(inventorySlot);
-      if (index < 0)
-      {
-         return;
-      }
+        // no space
+        GD.Print("Inv Full!");
+    }
 
-      RemoveSlotAtIndex(index);
-   }
+    public void RemoveSlot(InventorySlot inventorySlot)
+    {
+        var index = Slots.IndexOf(inventorySlot);
+        if (index < 0)
+        {
+            return;
+        }
 
-   public void RemoveSlotAtIndex(int index)
-   {
-      Slots[index] = new InventorySlot();
-      EmitSignal(SignalName.InventoryUpdated);
-   }
+        RemoveSlotAtIndex(index);
+    }
 
-   public void InsertSlot(int index, InventorySlot inventorySlot)
-   {
-      Slots[index] = inventorySlot;
-      EmitSignal(SignalName.InventoryUpdated);
-   }
+    public void RemoveSlotAtIndex(int index)
+    {
+        Slots[index] = new InventorySlot();
+        EmitSignal(SignalName.InventoryUpdated);
+    }
 
-   public void UseItemAtSelectedIndex(int index)
-   {
-      if (index < 0 || index >= Slots.Count || Slots[index].Item == null)
-      {
-         return;
-      }
+    public void InsertSlot(int index, InventorySlot inventorySlot)
+    {
+        Slots[index] = inventorySlot;
+        EmitSignal(SignalName.InventoryUpdated);
+    }
 
-      var slot = Slots[index];
-      lastUsedItemIndex = index;
-      slot.Item.UseItem();
-   }
+    public void UseItemAtSelectedIndex(int index)
+    {
+        if (index < 0 || index >= Slots.Count || Slots[index].Item == null)
+        {
+            return;
+        }
 
-   public void RemoveLastUsedItem()
-   {
-      if (lastUsedItemIndex < 0)
-      {
-         return;
-      }
+        var slot = Slots[index];
+        lastUsedItemIndex = index;
+        slot.Item.UseItem();
+    }
 
-      var slot = Slots[lastUsedItemIndex];
+    public void RemoveLastUsedItem()
+    {
+        if (lastUsedItemIndex < 0)
+        {
+            return;
+        }
 
-      if (slot.Amount > 1)
-      {
-         slot.Amount--;
-         EmitSignal(SignalName.InventoryUpdated);
-         return;
-      }
+        var slot = Slots[lastUsedItemIndex];
 
-      RemoveSlotAtIndex(lastUsedItemIndex);
-   }
+        if (slot.Amount > 1)
+        {
+            slot.Amount--;
+            EmitSignal(SignalName.InventoryUpdated);
+            return;
+        }
+
+        RemoveSlotAtIndex(lastUsedItemIndex);
+    }
 }

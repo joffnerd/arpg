@@ -1,4 +1,3 @@
-
 using ARPG.Resources;
 using Godot;
 
@@ -7,8 +6,6 @@ namespace ARPG.Scripts.Objects;
 public partial class BigSword : Collectable
 {
    public AnimationPlayer Animations;
-
-   private Inventory Inventory;
 
    public override void _Ready()
    {
@@ -22,12 +19,11 @@ public partial class BigSword : Collectable
    {
       GD.Print("AnimationFinished");
 
-      base.Collect(Inventory);
+      base.Collect();
    }
 
-   public override void Collect(Inventory inventory)
+   public override void Collect()
    {
-      Inventory = inventory;
       Animations.Play("Spin");
    }
 }

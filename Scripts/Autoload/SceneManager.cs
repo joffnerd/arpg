@@ -8,8 +8,8 @@ public partial class SceneManager : Node
 {
    public static SceneManager Instance { get; private set; }
 
-   public readonly int LEVEL_H = 144;
-   public readonly int LEVEL_W = 240;
+   public readonly int LEVEL_H = 180;
+   public readonly int LEVEL_W = 300;
    public readonly string VERSION = "1.0";
 
    [Signal]

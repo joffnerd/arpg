@@ -31,7 +31,7 @@ public partial class InventoryItem : Resource
 
    public virtual bool CanUseItem()
    {
-      return true;
+      return false;
    }
 
    public void PlaySound()
