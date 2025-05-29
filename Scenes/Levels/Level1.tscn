@@ -1730,7 +1730,7 @@ shape = SubResource("RectangleShape2D_73dir")
 
 [node name="EntranceMarkers" type="Node2D" parent="."]
 
-[node name="Start" type="Marker2D" parent="EntranceMarkers"]
+[node name="Start1" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(62, 58)
 
 [node name="House1" type="Marker2D" parent="EntranceMarkers"]
@@ -1741,3 +1741,6 @@ position = Vector2(672, 196)
 
 [node name="House3" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(663, 341)
+
+[node name="Start" type="Marker2D" parent="EntranceMarkers"]
+position = Vector2(548, 140)

@@ -3,5 +3,5 @@
 [ext_resource type="Script" uid="uid://ccqtn1aiep1ac" path="res://Scripts/Gui/HeartsContainer.cs" id="1_klfaw"]
 
 [node name="HeartsContainer" type="HBoxContainer"]
-theme_override_constants/separation = 2
+theme_override_constants/separation = 4
 script = ExtResource("1_klfaw")

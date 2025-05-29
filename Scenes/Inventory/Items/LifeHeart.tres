@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="InventoryHealth" load_steps=3 format=3 uid="uid://uhiucpljl0vs"]
 
-[ext_resource type="Texture2D" uid="uid://du7b3rmavu7w6" path="res://Art/Objects/Pot/Heart.png" id="1_1f65c"]
+[ext_resource type="Texture2D" uid="uid://du7b3rmavu7w6" path="res://Art/Objects/Health/Heart.png" id="1_1f65c"]
 [ext_resource type="Script" uid="uid://c8lirmkf5x2e3" path="res://Scripts/Resources/InventoryHealth.cs" id="1_tnlpp"]
 
 [resource]

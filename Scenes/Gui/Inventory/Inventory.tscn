@@ -2,14 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://e5pn32qucocl" path="res://Art/GUI/InventoryRect.png" id="1_112l1"]
 [ext_resource type="Script" uid="uid://d4ke54g1kjxdq" path="res://Scripts/Gui/Inventory.cs" id="1_vy4n2"]
-[ext_resource type="PackedScene" uid="uid://ddbpbskg5gmgk" path="res://Scenes/Gui/Slot.tscn" id="2_bo6ly"]
+[ext_resource type="PackedScene" uid="uid://ddbpbskg5gmgk" path="res://Scenes/Gui/Inventory/Slot.tscn" id="2_bo6ly"]
 
 [node name="Inventory" type="Control"]
-custom_minimum_size = Vector2(134, 84)
+custom_minimum_size = Vector2(134, 96)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 134.0
-offset_bottom = 84.0
+offset_bottom = 96.0
 script = ExtResource("1_vy4n2")
 
 [node name="Background" type="NinePatchRect" parent="."]
