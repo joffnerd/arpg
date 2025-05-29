@@ -1644,7 +1644,7 @@ tile_set = SubResource("TileSet_45d1s")
 
 [node name="Items" type="TileMapLayer" parent="Layers"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAADAAwAAAAAAAAAAgADAA0AAAAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAZABcAAAAAAAAAAwANABkAAAAAAAAAAgAaAAYAAAAAAAAAAgADAA0AAAAAAAAAAQAEAAwAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_8h4de")
 
 [node name="Buildings" type="TileMapLayer" parent="Layers"]
