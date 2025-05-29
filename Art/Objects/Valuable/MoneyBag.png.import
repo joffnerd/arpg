@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du7b3rmavu7w6"
-path="res://.godot/imported/Heart.png-f871cc51e92da49ab35f9ba516a999e5.ctex"
+uid="uid://dmhc0gjvybwgb"
+path="res://.godot/imported/MoneyBag.png-2ff7bdb95a69009206c64096a5582b79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Objects/Pot/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f871cc51e92da49ab35f9ba516a999e5.ctex"]
+source_file="res://Art/Objects/Valuable/MoneyBag.png"
+dest_files=["res://.godot/imported/MoneyBag.png-2ff7bdb95a69009206c64096a5582b79.ctex"]
 
 [params]
 

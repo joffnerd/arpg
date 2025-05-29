@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc16tq5r1i173"
-path="res://.godot/imported/Medipack.png-39cc32680f48a3201598d0684751fc0e.ctex"
+uid="uid://d34rlpwrclfl3"
+path="res://.godot/imported/MilkPot.png-7a0b1333f2808a353d8cd659551c7892.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Objects/Pot/Medipack.png"
-dest_files=["res://.godot/imported/Medipack.png-39cc32680f48a3201598d0684751fc0e.ctex"]
+source_file="res://Art/Objects/Pot/MilkPot.png"
+dest_files=["res://.godot/imported/MilkPot.png-7a0b1333f2808a353d8cd659551c7892.ctex"]
 
 [params]
 
