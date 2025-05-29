@@ -66,8 +66,7 @@ public partial class Player : CharacterBody2D
 
       HandleInput();
       MoveAndSlide();
-      UpdateAnimation();
-      CheckTakeDamage();      
+      UpdateAnimation();    
    }
 
    public void Disable()
@@ -100,18 +99,12 @@ public partial class Player : CharacterBody2D
 
    public void OnHurtBoxAreaEntered(Area2D area)
    {
-      if (!area.HasMeta("isCollectable"))
+      if (!isHit)
       {
-         return;
-      }
-
-      var item = area as Collectable;
-      item.BuildMeta(area);
-
-      var isCollectable = (bool)area.GetMeta("isCollectable");
-      if (isCollectable)
-      {        
-         item.Collect(Inventory);
+         if (area.Name == "HitBox")
+         {
+            TakeDamage(area);
+         }
       }
    }
 
@@ -126,20 +119,6 @@ public partial class Player : CharacterBody2D
          }
 
          EmitSignal(SignalName.HealthChanged, currentHealth);
-      }
-   }
-
-   public void CheckTakeDamage()
-   {
-      if (!isHit)
-      {
-         foreach (Area2D area in HurtBox.GetOverlappingAreas())
-         {
-            if (area.Name == "HitBox")
-            {               
-               TakeDamage(area);
-            }
-         }
       }
    }
 

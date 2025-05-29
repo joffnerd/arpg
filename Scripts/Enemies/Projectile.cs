@@ -27,7 +27,7 @@ public partial class Projectile : CharacterBody2D
    {
       if(body is Player.Player)
       {
-         GD.Print("Collision " + body.Name);
+         GD.Print("Projectile Collision " + body.Name);
          QueueFree();
       }      
    }

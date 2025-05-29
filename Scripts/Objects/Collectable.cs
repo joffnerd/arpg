@@ -18,6 +18,23 @@ public partial class Collectable : Area2D
       AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");
    }
 
+   public void OnAreaEntered(Area2D area)
+   {
+      var obj = area.GetParent();
+      if(obj is not Player.Player)
+      {
+         return;
+      }
+
+      BuildMeta(this);
+
+      var isCollectable = (bool)GetMeta("isCollectable");
+      if (isCollectable)
+      {
+         Collect(SceneManager.Instance.Player.Inventory);
+      }
+   }
+
    public virtual void Collect(Inventory inventory)
    {
       MetaData.TryGetValue("isWeapon", out bool isWeapon);

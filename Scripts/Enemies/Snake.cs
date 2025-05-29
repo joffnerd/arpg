@@ -19,7 +19,7 @@ public partial class Snake : Enemy
 
       CoolDown = new Timer()
       {
-         WaitTime = 0.5,
+         WaitTime = 1,
          Autostart = true
       };
       CoolDown.Timeout += CoolDown_Timeout;
@@ -33,7 +33,7 @@ public partial class Snake : Enemy
 
    private void CoolDown_Timeout()
    {
-      Shoot();
+      //Shoot();
    }
 
    public override void AnimationFinished(StringName animName)
