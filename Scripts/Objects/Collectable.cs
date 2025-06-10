@@ -7,77 +7,84 @@ namespace ARPG.Scripts.Objects;
 
 public partial class Collectable : Area2D
 {
-    [Export]
-    public InventoryItem ItemResource;
+   [Export]
+   public InventoryItem ItemResource;
 
-    public AudioStream AudioCollect;
-    public Dictionary<string, bool> MetaData = [];
+   public AudioStream AudioCollect;
+   public AnimationPlayer AnimationPlayer;
+   public Dictionary<string, bool> MetaData = [];
 
-    public override void _Ready()
-    {
-        AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");
-    }
+   public override void _Ready()
+   {
+      ZIndex = 4;
+      AudioCollect = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Gold1.wav");
+      AnimationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+      if(AnimationPlayer != null)
+      {
+         AnimationPlayer.Play("Spin");
+      }
+   }
 
-    public void OnAreaEntered(Area2D area)
-    {
-        var obj = area.GetParent();
-        if (obj is not Player.Player)
-        {
-            return;
-        }
+   public void OnAreaEntered(Area2D area)
+   {
+      var obj = area.GetParent();
+      if (obj is not Player.Player)
+      {
+         return;
+      }
 
-        BuildMeta(this);
+      BuildMeta(this);
 
-        var isCollectable = (bool)GetMeta("isCollectable");
-        if (isCollectable)
-        {
-            Collect();
-        }
-    }
+      var isCollectable = (bool)GetMeta("isCollectable");
+      if (isCollectable)
+      {
+         Collect();
+      }
+   }
 
-    public virtual void Collect()
-    {
-        var inventory = SceneManager.Instance.Player.Inventory;
+   public virtual void Collect()
+   {
+      var inventory = SceneManager.Instance.Player.Inventory;
 
-        MetaData.TryGetValue("isWeapon", out bool isWeapon);
-        MetaData.TryGetValue("isHealth", out bool isHealth);
-        MetaData.TryGetValue("isInvItem", out bool isInvItem);
-        MetaData.TryGetValue("isConsumable", out bool isConsumable);
+      MetaData.TryGetValue("isWeapon", out bool isWeapon);
+      MetaData.TryGetValue("isHealth", out bool isHealth);
+      MetaData.TryGetValue("isInvItem", out bool isInvItem);
+      MetaData.TryGetValue("isConsumable", out bool isConsumable);
 
-        if (isInvItem)
-        {
-            inventory.Insert(ItemResource);
-        }
+      if (isInvItem)
+      {
+         inventory.Insert(ItemResource);
+      }
 
-        if (isWeapon)
-        {
-            SceneManager.Instance.Player.ToggleWeapon(true);
-        }
+      if (isWeapon)
+      {
+         SceneManager.Instance.Player.ToggleWeapon(true);
+      }
 
-        if (!isInvItem && isHealth && isConsumable)
-        {
-            var amount = ((InventoryHealth)ItemResource).HealthAmount;
-            SceneManager.Instance.Player.UpdateHealth(amount);
-        }
+      if (!isInvItem && isHealth && isConsumable)
+      {
+         var amount = ((InventoryHealth)ItemResource).HealthAmount;
+         SceneManager.Instance.Player.UpdateHealth(amount);
+      }
 
-        PlaySound();
+      PlaySound();
 
-        QueueFree();
-    }
+      QueueFree();
+   }
 
-    public virtual void PlaySound()
-    {
-        SceneManager.Instance.Main.Effects.Stream = AudioCollect;
-        SceneManager.Instance.Main.Effects.Play();
-    }
+   public virtual void PlaySound()
+   {
+      SceneManager.Instance.Main.Effects.Stream = AudioCollect;
+      SceneManager.Instance.Main.Effects.Play();
+   }
 
-    public void BuildMeta(Area2D area)
-    {
-        var meta = area.GetMetaList();
-        foreach (var item in meta)
-        {
-            var val = (bool)area.GetMeta(item.ToString());
-            MetaData.Add(item, val);
-        }
-    }
+   public void BuildMeta(Area2D area)
+   {
+      var meta = area.GetMetaList();
+      foreach (var item in meta)
+      {
+         var val = (bool)area.GetMeta(item.ToString());
+         MetaData.Add(item, val);
+      }
+   }
 }

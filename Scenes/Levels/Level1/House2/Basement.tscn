@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_5atdg"]
 [ext_resource type="Texture2D" uid="uid://6ksck3hj6juf" path="res://Art/World/TilesetWallSimple.png" id="2_f6puf"]
 [ext_resource type="Texture2D" uid="uid://bfblia3r6l1wl" path="res://Art/World/TilesetInteriorFloor.png" id="3_v2vae"]
-[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="4_r6juq"]
-[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="5_f6puf"]
+[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Collectables/LifePot.tscn" id="4_r6juq"]
+[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Collectables/BigSword.tscn" id="5_f6puf"]
 [ext_resource type="Texture2D" uid="uid://b1b10mkj1elqw" path="res://Art/World/TilesetElement.png" id="5_yenrl"]
 [ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="6_aw58d"]
 

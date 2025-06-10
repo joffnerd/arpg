@@ -1,3 +1,5 @@
+using ARPG.Scripts.Autoload;
+using ARPG.Scripts.Gui;
 using Godot;
 
 namespace ARPG.Scripts.Enemies;
@@ -5,30 +7,37 @@ namespace ARPG.Scripts.Enemies;
 public partial class Projectile : CharacterBody2D
 {
    [Export]
-   public int Speed = 50;
+   public int Speed = 75;
 
-   public float Direction;
-   public Vector2 SpawnPos;
-   public float SpawnRot;
+   public Sprite2D Sprite2D;
+
+   public float RotationSpeed = 3;
+   public Vector2 SpawnPosition;
+   
 
    public override void _Ready()
    {
-      GlobalPosition = SpawnPos;
-      GlobalRotation = SpawnRot;
+      Sprite2D = GetNode<Sprite2D>("Sprite2D");
+
+      GlobalPosition = SpawnPosition;
+
+      var distanceVector = SpawnPosition - SceneManager.Instance.Player.GlobalPosition;
+      Velocity = distanceVector.Normalized() * -Speed;
+
+      ZIndex = 5;
+
+      SceneManager.Instance.Player.ProjectileHit += ProjectileHit;
    }
 
    public override void _PhysicsProcess(double delta)
    {
-      Velocity = new Vector2(0,-Speed).Rotated(Direction);
+      Sprite2D.RotationDegrees += RotationSpeed;
       MoveAndSlide();
    }
 
-   public void OnProjectileBodyEntered(Node2D body)
+   public void ProjectileHit(Projectile projectile)
    {
-      if(body is Player.Player)
-      {
-         GD.Print("Projectile Collision " + body.Name);
-         QueueFree();
-      }      
+      GD.Print("ProjectileHit");
+      projectile.QueueFree();
    }
 }

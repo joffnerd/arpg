@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cni1818psh5k3" path="res://Scripts/Enemies/Projectile.cs" id="1_xqss5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fld28"]
-radius = 7.0
+radius = 3.0
 
 [node name="Projectile" type="CharacterBody2D"]
 collision_layer = 0
@@ -12,18 +12,20 @@ collision_mask = 0
 script = ExtResource("1_xqss5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_fld28")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fld28")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+scale = Vector2(0.4, 0.4)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_fld28")
 
-[connection signal="body_entered" from="Area2D" to="." method="OnProjectileBodyEntered"]
+[connection signal="body_entered" from="HitBox" to="." method="OnProjectileBodyEntered"]

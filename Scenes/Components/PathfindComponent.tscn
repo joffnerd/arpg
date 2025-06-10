@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvs8afg0kp4x6"]
+
+[ext_resource type="Script" uid="uid://co0nxtbx1g3i7" path="res://Scenes/Components/PathfindComponent.cs" id="1_fn5rm"]
+
+[node name="PathfindComponent" type="Node2D"]
+script = ExtResource("1_fn5rm")

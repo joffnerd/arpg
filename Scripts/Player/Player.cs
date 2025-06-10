@@ -1,6 +1,6 @@
-using ARPG.Scripts.Objects;
 using ARPG.Resources;
 using Godot;
+using ARPG.Scripts.Enemies;
 
 namespace ARPG.Scripts.Player;
 
@@ -11,6 +11,9 @@ public partial class Player : CharacterBody2D
 
    [Signal]
    public delegate void HealthChangedEventHandler(int health);
+
+   [Signal]
+   public delegate void ProjectileHitEventHandler(Projectile projectile);
 
    public AnimationPlayer Animations;
    public AnimationPlayer VisualEffects;
@@ -29,7 +32,7 @@ public partial class Player : CharacterBody2D
    private int speed = 50;
    private int knockbackAmount = 600;
    private bool isHit = false;
-   private bool isAttacking = false;   
+   private bool isAttacking = false;
    private string lastAnimDirection = "Down";
    private bool inputEnabled = true;
 
@@ -43,7 +46,7 @@ public partial class Player : CharacterBody2D
       AudioEffects = GetNode<AudioStreamPlayer>("AudioEffects");
       AudioAttack = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Slash.wav");
       AudioAttackFail = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Sword2.wav");
-      AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");      
+      AudioHurt = ResourceLoader.Load<AudioStream>("res://Audio/Effects/Impact.wav");
 
       HitTimer = GetNode<Timer>("HitTimer");
       HitTimer.Timeout += HitTimerTimeout;
@@ -66,89 +69,7 @@ public partial class Player : CharacterBody2D
 
       HandleInput();
       MoveAndSlide();
-      UpdateAnimation();    
-   }
-
-   public void Disable()
-   {
-      inputEnabled = false;
-      VisualEffects.Play("RESET");
-   }
-
-   public void Enable()
-   {
-      inputEnabled = true;
-      Visible = true;
-   }
-
-   private void HitTimerTimeout()
-   {
-      VisualEffects.Play("RESET");
-      isHit = false;
-   }
-
-   private void AnimationFinished(StringName animName)
-   {
-      if (animName.ToString().StartsWith("attack"))
-      {
-         Weapon.Disable();
-         isAttacking = false;
-         Animations.Play("walk" + lastAnimDirection);
-      }
-   }
-
-   public void OnHurtBoxAreaEntered(Area2D area)
-   {
-      if (!isHit)
-      {
-         if (area.Name == "HitBox")
-         {
-            TakeDamage(area);
-         }
-      }
-   }
-
-   public void UpdateHealth(int amount)
-   {
-      if (currentHealth < maxHealth)
-      {
-         currentHealth += amount;
-
-         if (currentHealth > maxHealth) {
-            currentHealth = maxHealth;
-         }
-
-         EmitSignal(SignalName.HealthChanged, currentHealth);
-      }
-   }
-
-   public void TakeDamage(Area2D area)
-   {
-      GD.Print("Player Hurt: " + area.GetParent().Name + " -> " + area.Name);
-
-      currentHealth -= 1;
-      if (currentHealth < 1)
-      {
-         GD.Print("GAME OVER");
-         QueueFree();
-         return;
-      }
-
-      EmitSignal(SignalName.HealthChanged, currentHealth);
-      isHit = true;
-
-      var enemy = area.GetParent() as CharacterBody2D;
-      KnockBack(enemy.Velocity);
-      VisualEffects.Play("HurtBlink");
-      HitTimer.Start();
-
-      AudioEffects.Stream = AudioHurt;
-      AudioEffects.Play();
-   }
-
-   public void ToggleWeapon(bool have)
-   {
-      haveWeapon = have;
+      UpdateAnimation();
    }
 
    public void HandleInput()
@@ -169,7 +90,7 @@ public partial class Player : CharacterBody2D
    }
 
    public void Attack()
-   {      
+   {
       if (!haveWeapon)
       {
          AudioEffects.Stream = AudioAttackFail;
@@ -177,7 +98,7 @@ public partial class Player : CharacterBody2D
 
          return;
       }
-      
+
 
       Animations.Play("attack" + lastAnimDirection);
       isAttacking = true;
@@ -186,6 +107,56 @@ public partial class Player : CharacterBody2D
       AudioEffects.Play();
 
       Weapon.Enable();
+   }
+
+   public void UpdateHealth(int amount)
+   {
+      if (currentHealth < maxHealth)
+      {
+         currentHealth += amount;
+
+         if (currentHealth > maxHealth)
+         {
+            currentHealth = maxHealth;
+         }
+
+         EmitSignal(SignalName.HealthChanged, currentHealth);
+      }
+   }
+
+   public void TakeDamage(Node origin)
+   {
+      //GD.Print("Player Hurt: " + area.GetParent().Name + " -> " + area.Name);
+
+      currentHealth -= 1;
+      if (currentHealth < 1)
+      {
+         GD.Print("GAME OVER");
+         QueueFree();
+         return;
+      }
+
+      if(origin is Enemy)
+      {
+         var enemy = origin as CharacterBody2D;
+         KnockBack(enemy.Velocity);
+      }
+
+      EmitSignal(SignalName.HealthChanged, currentHealth);
+      isHit = true;
+
+      VisualEffects.Play("HurtBlink");
+      HitTimer.Start();
+
+      AudioEffects.Stream = AudioHurt;
+      AudioEffects.Play();
+   }
+
+   public void KnockBack(Vector2 enemyVelocity)
+   {
+      var knockbackDir = enemyVelocity.Normalized() * knockbackAmount;
+      Velocity = knockbackDir;
+      MoveAndSlide();
    }
 
    public void UpdateAnimation()
@@ -217,10 +188,56 @@ public partial class Player : CharacterBody2D
       }
    }
 
-   public void KnockBack(Vector2 enemyVelocity)
+   public void AnimationFinished(StringName animName)
    {
-      var knockbackDir = enemyVelocity.Normalized() * knockbackAmount;
-      Velocity = knockbackDir;
-      MoveAndSlide();
+      if (animName.ToString().StartsWith("attack"))
+      {
+         Weapon.Disable();
+         isAttacking = false;
+         Animations.Play("walk" + lastAnimDirection);
+      }
+   }
+
+   public void HitTimerTimeout()
+   {
+      VisualEffects.Play("RESET");
+      isHit = false;
+   }
+
+   public void OnHurtBoxAreaEntered(Area2D area)
+   {
+      var origin = area.GetParent();
+
+      if (isHit)
+      {
+         return;
+      }
+
+      if (origin is Enemy || origin is Projectile)
+      {
+         TakeDamage(origin);
+      }
+
+      if(origin is Projectile)
+      {
+         EmitSignal(SignalName.ProjectileHit, origin);
+      }
+   }
+
+   public void ToggleWeapon(bool have)
+   {
+      haveWeapon = have;
+   }
+
+   public void Disable()
+   {
+      inputEnabled = false;
+      VisualEffects.Play("RESET");
+   }
+
+   public void Enable()
+   {
+      inputEnabled = true;
+      Visible = true;
    }
 }

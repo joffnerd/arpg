@@ -335,23 +335,19 @@ libraries = {
 }
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_s88bi")
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 scale = Vector2(1.00506, 1)
 collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-visible = false
 position = Vector2(0, -7)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ua82p")
@@ -365,14 +361,13 @@ hframes = 6
 [node name="AudioEffects" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3v4wo")
 
-[node name="FollowTrigger" type="Area2D" parent="."]
-visible = false
+[node name="PerimeterTrigger" type="Area2D" parent="."]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PerimeterTrigger"]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_2ggs0")
 
 [connection signal="area_entered" from="HurtBox" to="." method="OnHurtBoxAreaEntered"]
-[connection signal="body_entered" from="FollowTrigger" to="." method="OnFollowTriggerBodyEntered"]
-[connection signal="body_exited" from="FollowTrigger" to="." method="OnFollowTriggerBodyExited"]
+[connection signal="body_entered" from="PerimeterTrigger" to="." method="OnPerimeterTriggerBodyEntered"]
+[connection signal="body_exited" from="PerimeterTrigger" to="." method="OnPerimeterTriggerBodyExited"]

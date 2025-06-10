@@ -21,12 +21,10 @@ public partial class Inventory : Resource
         var amount = 1;
         var invType = item.GetType().ToString();
 
-        GD.Print(invType);
-
         switch (invType)
         {
             case "ARPG.Resources.InventoryGem":
-                amount = ((InventoryGem)item).Value;
+                amount = ((InventoryValuable)item).Value;
                 break;
         }
 

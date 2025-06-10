@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://jd66tdr21cy6"]
 
-[ext_resource type="PackedScene" uid="uid://dwgfu5wjhxbaw" path="res://Scenes/Objects/Collectable.tscn" id="1_1v7o8"]
+[ext_resource type="PackedScene" uid="uid://dwgfu5wjhxbaw" path="res://Scenes/Collectables/Collectable.tscn" id="1_1v7o8"]
 [ext_resource type="Script" uid="uid://beqs0r7r381h6" path="res://Scripts/Objects/Gem.cs" id="2_m4rpn"]
 [ext_resource type="Texture2D" uid="uid://bqivssrhoaanh" path="res://Art/Objects/Valuable/GemGreen.png" id="2_mekeq"]
 [ext_resource type="Resource" uid="uid://cc1foa3ht4tk1" path="res://Scenes/Inventory/Items/Gem.tres" id="3_025us"]
@@ -10,6 +10,7 @@ resource_local_to_scene = true
 size = Vector2(6, 6)
 
 [node name="Gem" instance=ExtResource("1_1v7o8")]
+z_index = 4
 script = ExtResource("2_m4rpn")
 ItemResource = ExtResource("3_025us")
 metadata/isInvItem = true
@@ -19,5 +20,5 @@ shape = SubResource("RectangleShape2D_mekeq")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -1.19209e-07)
-scale = Vector2(0.4375, 0.4375)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_mekeq")

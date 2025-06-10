@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cc1foa3ht4tk1"]
+[gd_resource type="Resource" script_class="InventoryValuable" load_steps=3 format=3 uid="uid://cc1foa3ht4tk1"]
 
-[ext_resource type="Script" uid="uid://dcmhtilwn074u" path="res://Scripts/Resources/InventoryGem.cs" id="1_uiui8"]
+[ext_resource type="Script" uid="uid://dl5m2dh0hrn6v" path="res://Scripts/Resources/InventoryValuable.cs" id="1_uiui8"]
 [ext_resource type="Texture2D" uid="uid://bqivssrhoaanh" path="res://Art/Objects/Valuable/GemGreen.png" id="1_xiww0"]
 
 [resource]
 script = ExtResource("1_uiui8")
-Name = ""
+Name = "Gem"
 Texture = ExtResource("1_xiww0")
-MaxStackAmount = 99
+MaxStackAmount = 999
 metadata/_custom_type_script = "uid://cm6672mi4e08m"

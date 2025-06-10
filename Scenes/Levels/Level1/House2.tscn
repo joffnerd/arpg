@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bjjk14axlmvyg" path="res://Scripts/Levels/BaseLevel.cs" id="1_n7q14"]
 [ext_resource type="Texture2D" uid="uid://6ksck3hj6juf" path="res://Art/World/TilesetWallSimple.png" id="2_2g7eo"]
 [ext_resource type="Texture2D" uid="uid://bfblia3r6l1wl" path="res://Art/World/TilesetInteriorFloor.png" id="3_m0qmf"]
-[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="4_srq7l"]
+[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Collectables/LifePot.tscn" id="4_srq7l"]
 [ext_resource type="Texture2D" uid="uid://b1b10mkj1elqw" path="res://Art/World/TilesetElement.png" id="5_w0wsh"]
 [ext_resource type="PackedScene" uid="uid://bepj2umykpxyb" path="res://Scenes/Levels/SceneTrigger.tscn" id="6_2hgrm"]
 

@@ -26,7 +26,7 @@ public partial class Inventory : Control
    public override void _Ready()
    {
       PlayerInventory = GD.Load<Resources.Inventory>("res://Scenes/Inventory/PlayerInventory.tres");
-      ItemStack = GD.Load<PackedScene>("res://Scenes/Gui/Inventory/ItemStack.tscn");
+      ItemStack = GD.Load<PackedScene>("res://Scenes/Gui/ItemStack.tscn");
 
       var hotBarSlots = GetNode<BoxContainer>("Background/HotBarSlots").GetChildren().Cast<Slot>();
       var slots = GetNode<GridContainer>("Background/NormalSlots").GetChildren().Cast<Slot>();

@@ -27,7 +27,9 @@ public partial class Enemy : CharacterBody2D
    public float moveLimit = 0.5f;
    public bool isDead = false;
    public bool isTakingDamage = false;
+   public bool canFollow = false;
    public bool isFollowing = false;
+   public bool perimeterBreached = false;
 
    public override void _Ready()
    {
@@ -43,16 +45,11 @@ public partial class Enemy : CharacterBody2D
          WaitTime = 0.5
       };
       AddChild(DamageTimer);
-      DamageTimer.Timeout += DamageTimer_Timeout; ;
+      DamageTimer.Timeout += DamageTimer_Timeout;
 
       DeathPosition = GlobalPosition;
       StartPosition = GlobalPosition;
       EndPosition = EndPoint.GlobalPosition;
-   }
-
-   private void DamageTimer_Timeout()
-   {
-      isTakingDamage = false;
    }
 
    public override void _PhysicsProcess(double delta)
@@ -66,14 +63,17 @@ public partial class Enemy : CharacterBody2D
       MoveAndSlide();
    }
 
+   private void DamageTimer_Timeout()
+   {
+      isTakingDamage = false;
+   }
+
    public virtual void AnimationFinished(StringName animName)
    {
-      GD.Print(animName);
-
       if(animName == "Death")
       {
-         CharacterBody2D enemy = this;
-         EmitSignal(SignalName.EnemyDeath, enemy);
+         // Spawn Items in BaseLevel
+         EmitSignal(SignalName.EnemyDeath, this);
 
          QueueFree();
       }
@@ -87,19 +87,24 @@ public partial class Enemy : CharacterBody2D
       }
    }
 
-   public void OnFollowTriggerBodyEntered(Node2D body)
+   public void OnPerimeterTriggerBodyEntered(Node2D body)
    {
       if (body is Player.Player)
       {
-         isFollowing = true;
-         Target = body as Player.Player;
+         perimeterBreached = true;
+         if (canFollow)
+         {
+            isFollowing = true;
+            Target = body as Player.Player;
+         }
       }
    }
 
-   public void OnFollowTriggerBodyExited(Node2D body)
+   public void OnPerimeterTriggerBodyExited(Node2D body)
    {
       if (body == Target)
       {
+         perimeterBreached = false;
          isFollowing = false;
          Target = null;
       }
@@ -114,7 +119,7 @@ public partial class Enemy : CharacterBody2D
 
       currentHealth -= 1;
 
-      GD.Print(string.Format("{0} Hurt: {1} -> {2}", Name, area.Name, currentHealth));
+      //GD.Print(string.Format("{0} Hurt: {1} -> {2}", Name, area.Name, currentHealth));
 
       if (currentHealth < 1)
       {

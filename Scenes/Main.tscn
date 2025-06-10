@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dub65u0uk416l" path="res://Scenes/Inventory/PlayerInventory.tres" id="2_50glp"]
 [ext_resource type="PackedScene" uid="uid://ci2uhfarkoqmt" path="res://Scenes/Gui/Health/HeartsContainer.tscn" id="2_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://rkliopq3o2yy" path="res://Scenes/Levels/Level1.tscn" id="2_vy5pj"]
-[ext_resource type="PackedScene" uid="uid://8agri3qxc2ie" path="res://Scenes/Gui/Inventory/Inventory.tscn" id="3_v1gob"]
+[ext_resource type="PackedScene" uid="uid://8agri3qxc2ie" path="res://Scenes/Gui/Inventory.tscn" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://c3acwqjqgskcl" path="res://Scripts/Player/FollowCam.cs" id="3_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://kv7k08g3l12w" path="res://Scenes/Gui/HotBar/HotBar.tscn" id="4_jw32o"]
 [ext_resource type="AudioStream" uid="uid://dexhrdxo5s73n" path="res://Audio/Music/1 - Adventure Begin.ogg" id="10_bmxlf"]

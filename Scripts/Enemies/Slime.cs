@@ -7,6 +7,7 @@ public partial class Slime : Enemy
    public override void _Ready()
    {
       speed = 25;
+      canFollow = true;
 
       base._Ready();      
    }

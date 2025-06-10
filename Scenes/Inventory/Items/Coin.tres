@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="InventoryValuable" load_steps=4 format=3 uid="uid://0q3sxw25ujop"]
+
+[ext_resource type="Texture2D" uid="uid://d2k8qlxfdugd3" path="res://Art/Objects/Valuable/Coin2.png" id="1_asgjr"]
+[ext_resource type="Script" uid="uid://dl5m2dh0hrn6v" path="res://Scripts/Resources/InventoryValuable.cs" id="1_est61"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asgjr"]
+atlas = ExtResource("1_asgjr")
+region = Rect2(0, 0, 10, 10)
+
+[resource]
+script = ExtResource("1_est61")
+Name = ""
+Texture = SubResource("AtlasTexture_asgjr")
+MaxStackAmount = 999
+metadata/_custom_type_script = "uid://dl5m2dh0hrn6v"

@@ -5,58 +5,48 @@ namespace ARPG.Scripts.Enemies;
 
 public partial class Snake : Enemy
 {
-   public Timer CoolDown;
    public PackedScene Projectile;
+   private double timer;
 
    public override void _Ready()
    {
       speed = 35;
       currentHealth = 4;
+      canFollow = true;
 
       base._Ready();
 
       Projectile = ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/Projectile.tscn");
-
-      CoolDown = new Timer()
-      {
-         WaitTime = 1,
-         Autostart = true
-      };
-      CoolDown.Timeout += CoolDown_Timeout;
-
-      GetTree().Root.AddChild(CoolDown);
-
-      CoolDown.Start();
-
-      isFollowing = true;
    }
 
-   private void CoolDown_Timeout()
+   public override void _PhysicsProcess(double delta)
    {
-      //Shoot();
+      base._PhysicsProcess(delta);
+
+      CheckTimer(delta);
    }
 
-   public override void AnimationFinished(StringName animName)
+   public void CheckTimer(double delta)
    {
-      base.AnimationFinished(animName);
-   }
-
-   public void Shoot()
-   {
-      if (isTakingDamage)
+      if (isTakingDamage || !perimeterBreached)
       {
          return;
       }
 
-      if (isFollowing)
+      timer += delta;
+      if (timer > 1)
       {
-         //GD.Print("Fire");
-         var instance = Projectile.Instantiate() as Projectile;
-         instance.Direction = Rotation;
-         instance.SpawnPos = GlobalPosition;
-         instance.SpawnRot = Rotation;
-
-         SceneManager.Instance.Main.CallDeferred("add_child", instance);
+         timer = 0;
+         ShootProjectile();
       }
+   }
+
+   public void ShootProjectile()
+   {
+      var instance = Projectile.Instantiate() as Projectile;
+      instance.SpawnPosition = GlobalPosition;
+      instance.Speed = 90;
+
+      SceneManager.Instance.Main.CallDeferred("add_child", instance);
    }
 }

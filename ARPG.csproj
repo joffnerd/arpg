@@ -4,7 +4,46 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Scenes\**" />
-    <EmbeddedResource Remove="Scenes\**" />
+    <None Include="Scenes\Collectables\BigSword.tscn" />
+    <None Include="Scenes\Collectables\Coin.tscn" />
+    <None Include="Scenes\Collectables\Collectable.tscn" />
+    <None Include="Scenes\Collectables\Gem.tscn" />
+    <None Include="Scenes\Collectables\LifeHeart.tscn" />
+    <None Include="Scenes\Collectables\LifePot.tscn" />
+    <None Include="Scenes\Enemies\Projectile.tscn" />
+    <None Include="Scenes\Enemies\Slime.tscn" />
+    <None Include="Scenes\Enemies\Snake.tscn" />
+    <None Include="Scenes\Gui\Health\Heart.tscn" />
+    <None Include="Scenes\Gui\Health\HeartsContainer.tscn" />
+    <None Include="Scenes\Gui\HotBar\HotBar.tscn" />
+    <None Include="Scenes\Gui\HotBar\HotBarSlot.tscn" />
+    <None Include="Scenes\Gui\Inventory.tscn" />
+    <None Include="Scenes\Gui\ItemStack.tscn" />
+    <None Include="Scenes\Gui\Slot.tscn" />
+    <None Include="Scenes\Inventory\Items\BigSword.tres" />
+    <None Include="Scenes\Inventory\Items\Coin.tres" />
+    <None Include="Scenes\Inventory\Items\Gem.tres" />
+    <None Include="Scenes\Inventory\Items\LifeHeart.tres" />
+    <None Include="Scenes\Inventory\Items\LifePot.tres" />
+    <None Include="Scenes\Inventory\PlayerInventory.tres" />
+    <None Include="Scenes\Levels\Level1.tscn" />
+    <None Include="Scenes\Levels\Level1\House1.tscn" />
+    <None Include="Scenes\Levels\Level1\House2.tscn" />
+    <None Include="Scenes\Levels\Level1\House2\Basement.tscn" />
+    <None Include="Scenes\Levels\Level1\House3.tscn" />
+    <None Include="Scenes\Levels\SceneTrigger.tscn" />
+    <None Include="Scenes\Main.tscn" />
+    <None Include="Scenes\Menus\LoadingScreen.tscn" />
+    <None Include="Scenes\Menus\StartScreen.tscn" />
+    <None Include="Scenes\Player\BigSword.tscn" />
+    <None Include="Scenes\Player\Player.tscn" />
+    <None Include="Scenes\World.cs.uid" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scenes\Levels\Level2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
+    <PackageReference Include="Firebelley.GodotUtilities.SourceGenerators" Version="5.0.0" />
   </ItemGroup>
 </Project>

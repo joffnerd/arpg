@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://vqdyqpbfr08e" path="res://Art/World/TilesetFloor.png" id="2_8yyh2"]
 [ext_resource type="Texture2D" uid="uid://30qb3ybvvphw" path="res://Art/World/TilesetNature.png" id="3_74h8q"]
 [ext_resource type="Texture2D" uid="uid://f4i0kkvubyei" path="res://Art/World/AnimFlower.png" id="4_pi8wi"]
-[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Objects/LifePot.tscn" id="5_f3nwb"]
-[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Objects/BigSword.tscn" id="7_57lp3"]
-[ext_resource type="PackedScene" uid="uid://jd66tdr21cy6" path="res://Scenes/Objects/Gem.tscn" id="7_n5ptj"]
+[ext_resource type="PackedScene" uid="uid://c4vd50s0b63ew" path="res://Scenes/Collectables/LifePot.tscn" id="5_f3nwb"]
+[ext_resource type="PackedScene" uid="uid://ckkw4tsiipg7x" path="res://Scenes/Collectables/BigSword.tscn" id="7_57lp3"]
+[ext_resource type="PackedScene" uid="uid://jd66tdr21cy6" path="res://Scenes/Collectables/Gem.tscn" id="7_n5ptj"]
 [ext_resource type="Texture2D" uid="uid://cp0cpk4582kxx" path="res://Art/World/TilesetHouse.png" id="8_u4pba"]
 [ext_resource type="PackedScene" uid="uid://b7idxkbyy4p0v" path="res://Scenes/Enemies/Slime.tscn" id="9_xnrx5"]
 [ext_resource type="PackedScene" uid="uid://cka2acs5tssjk" path="res://Scenes/Enemies/Snake.tscn" id="10_lsqv2"]
@@ -1643,8 +1643,9 @@ tile_map_data = PackedByteArray("AAAQAA4AAAAAAAAAAAATABIAAQAAAAAAAAAEAAoAAQAAAAA
 tile_set = SubResource("TileSet_45d1s")
 
 [node name="Items" type="TileMapLayer" parent="Layers"]
+z_index = 2
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAZABcAAAAAAAAAAwANABkAAAAAAAAAAgAaAAYAAAAAAAAAAgADAA0AAAAAAAAAAQAEAAwAAAAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAZABcAAAAAAAAAAwANABkAAAAAAAAAAgAaAAYAAAAAAAAAAgA=")
 tile_set = SubResource("TileSet_8h4de")
 
 [node name="Buildings" type="TileMapLayer" parent="Layers"]
@@ -1662,7 +1663,7 @@ collision_mask = 3
 EndPoint = NodePath("Marker2D")
 
 [node name="Marker2D" type="Marker2D" parent="Enemies/Slime1"]
-position = Vector2(-19, 27)
+position = Vector2(41, -27)
 
 [node name="Slime2" parent="Enemies" node_paths=PackedStringArray("EndPoint") instance=ExtResource("9_xnrx5")]
 position = Vector2(363, 109)
@@ -1742,7 +1743,7 @@ shape = SubResource("RectangleShape2D_73dir")
 
 [node name="EntranceMarkers" type="Node2D" parent="."]
 
-[node name="Start1" type="Marker2D" parent="EntranceMarkers"]
+[node name="Start" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(62, 58)
 
 [node name="House1" type="Marker2D" parent="EntranceMarkers"]
@@ -1754,5 +1755,9 @@ position = Vector2(672, 196)
 [node name="House3" type="Marker2D" parent="EntranceMarkers"]
 position = Vector2(663, 341)
 
-[node name="Start" type="Marker2D" parent="EntranceMarkers"]
-position = Vector2(53, 171)
+[node name="StartH" type="Marker2D" parent="EntranceMarkers"]
+position = Vector2(541, 128)
+
+[connection signal="area_entered" from="Layers/Items/BigSword" to="Layers/Items/BigSword" method="OnAreaEntered"]
+[connection signal="area_entered" from="Layers/Items/LifePot" to="Layers/Items/LifePot" method="OnAreaEntered"]
+[connection signal="area_entered" from="Layers/Items/@Area2D@28777" to="Layers/Items/@Area2D@28777" method="OnAreaEntered"]

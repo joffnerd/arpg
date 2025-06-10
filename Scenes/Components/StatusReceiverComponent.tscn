@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn8f5j4qa55oc"]
+
+[ext_resource type="Script" uid="uid://eow5u4agkhwu" path="res://Scenes/Components/StatusReceiverComponent.cs" id="1_1axus"]
+
+[node name="StatusReceiverComponent" type="Node"]
+script = ExtResource("1_1axus")
